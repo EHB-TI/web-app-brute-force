@@ -1,9 +1,9 @@
 # Goal
 Our idea is to create a platform for the school (scalable in the future), to let the students and teachers carpool safely. 
 It will be a web app where you can post your itinerary and people will be able to join you directly from the web app.
-The users will be able to chose the rate per KM.
+The users will be able to choose the rate per KM.
 To protect the platform from external people, the users will have to register with their student card.
-To make profit we will take a commition on every car pooling, or maybe put some ads.
+To make profit we will take a commition on every car pooling, or maybe have some ads displayed on the website.
 # Acceptance criteria
 *how do we know that the goals have been reached?*
 # Threat model
