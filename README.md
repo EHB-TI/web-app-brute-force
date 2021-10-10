@@ -5,7 +5,6 @@ The users will be able to choose the rate per KM.
 To protect the platform from external people, the users will have to register with their student card.
 To make profit we will take a commition on every car pooling, or maybe have some ads displayed on the website.
 # Acceptance criteria
-*how do we know that the goals have been reached?*
 The goals we have in mind will be reached as soon as we can establish a secure exchange between two people on the app. The most important factor of this app is the fact that people have to be able to schedule a carpool session. This has to be as secure and efficient as possible to ensure a good user experience. 
 # Threat model
 *describe your threat model. One or more architectural diagram expected. Also a list of the principal threats and what you will do about them*
