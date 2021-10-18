@@ -22,12 +22,12 @@ The goals we have in mind will be reached as soon as we can establish an encrypt
 ![Threat Model](images/threat_model/Threat_model.png)
 
 ## Data Acces and Exposure
-- injection : Use Parameterized SQL commands for all data access.
+- Injection : Use Parameterized SQL commands for all data access.
 - Practice Least Privilege - Connect to the database using an account with a minimum set of permissions required to do it's job i.e. not the sa account
 - We will not store Encrypted password 
 - Enforce passwords with a minimum complexity that will survive a dictionary attack i.e. longer passwords that use the full character set (numbers, symbols and letters) to increase the entropy.
 - Use a strong encryption routine such as AES-512 where personally identifiable data needs to be restored to it's original format
-- Use TLS 1.2 for your entire site
+- Use TLS 1.2 for the entire site
 - Ensure headers are not disclosing information about your application
 
 ## Broken Access Control
