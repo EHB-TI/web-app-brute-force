@@ -23,27 +23,27 @@ The goals we have in mind will be reached as soon as we can establish an encrypt
 
 ## Data Acces and Exposure
 - Injection : Use Parameterized SQL commands for all data access.
-- Practice Least Privilege - Connect to the database using an account with a minimum set of permissions required to do it's job i.e. not the sa account
-- We will not store Encrypted password 
+- Practice Least Privilege - Connect to the database using an account with a minimum set of permissions required to do it's job i.e. not the sa account.
+- We will not store Encrypted password. 
 - Enforce passwords with a minimum complexity that will survive a dictionary attack i.e. longer passwords that use the full character set (numbers, symbols and letters) to increase the entropy.
-- Use a strong encryption routine such as AES-512 where personally identifiable data needs to be restored to it's original format
-- Use TLS 1.2 for the entire site
-- Ensure headers are not disclosing information about your application
+- Use a strong encryption routine such as AES-512 where personally identifiable data needs to be restored to it's original format.
+- Use TLS 1.2 for the entire site.
+- Ensure headers are not disclosing information about your application.
 
 ## Broken Access Control
-- Reduce the time period a session can be stolen in by reducing session timeout and removing sliding expiration
-- Ensure cookie is sent over HTTPS in the production environment. This should be enforced in the config transforms
-- Protect LogOn, Registration and password reset methods against brute force attacks by throttling requests and considering using ReCaptcha
-- Use authentication or session management privided by .Net
+- Reduce the time period a session can be stolen in by reducing session timeout and removing sliding expiration.
+- Ensure cookie is sent over HTTPS in the production environment. This should be enforced in the config transforms.
+- Protect LogOn, Registration and password reset methods against brute force attacks by throttling requests and considering using ReCaptcha.
+- Use authentication or session management privided by .Net .
 
 ## Cross site Scripting (XSS)
-- Prevention : .NET Frameworks includes the AntiXssEncoder library, which has a comprehensive input encoding library
-- Enable a Content Security Policy, this will prevent your pages from accessing assets it should not be able to access (e.g. a malicious script)
-- validateRequest is a value in the web.config that enables limited XSS protection in ASP.NET and should be left intact as it provides partial prevention of Cross Site Scripting
+- Prevention : .NET Frameworks includes the AntiXssEncoder library, which has a comprehensive input encoding library.
+- Enable a Content Security Policy, this will prevent your pages from accessing assets it should not be able to access (e.g. a malicious script).
+- validateRequest is a value in the web.config that enables limited XSS protection in ASP.NET and should be left intact as it provides partial prevention of Cross Site Scripting.
 
 ## Insecure Deserialization
 - Validate User Input, Malicious users are able to use objects like cookies to insert malicious information to change user roles.
-- We will not accept Serialized Objects from Untrusted Sources and prevent Deserialization of Domain Objects
+- We will not accept Serialized Objects from Untrusted Sources and prevent Deserialization of Domain Objects.
 
 ## Encryption 
 - Use the Windows Data Protection API (DPAPI) for secure local storage of sensitive data.
