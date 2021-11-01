@@ -12,10 +12,35 @@ The goals we have in mind will be reached as soon as we can establish an encrypt
 - The input fields during the registration will be auto-filled with the data retrieved using the student ID.
 - The user can reuse an old carpooling session to create a new one with the same itinerary and data.
 - The users can use a map to pick a location easily.
-## Requirements to start a session
-- The creator and the other users that take part in the carpooling session need to complete their registration using their student ID.
-- The location and time of both the departure and arrival need to be filled in correctly.
-- The creator and the users have to agree to the payment method they both wish to use. The two payment methods are PayPal and cash.
+## Requirements to start a session - Session life cycle
+A carpooling session starts whenever a user - in this case a driver - offers the possibility for other users - in this case a person in need of transport - to join him/her on the ride to campus. A passenger can only join the carpool X-min before the depart time. X is a variable that must be determined by the driver himself, by default this variable will be equal to 1 hour.
+A session goes through different statuses:
+- OPEN: the session has been created and is available for the users. A user can still 	update information regarding the session.
+- CLOSED: the session has begun and is no longer available for outside users
+- TERMINATED: the session has successfully been fullfilled
+- ARCHIVED: the session is archived in the driver's history for a period of 60 days
+- DELETED: the archived session is deleted from the DB after a period of 60 days
+Users can see OPEN - CLOSED sessions, while TERMINATED - ARCHIVED are only visible to the admin and creator/driver of said session.
+
+A session contains multiple variables, these have to be filled in by the driver of the carpool-session. The needed variables are the following:
+- Title
+- Depart address
+- Depart date
+- Depart time
+- Rate per Km
+- Amount of available seats: The amount of available seats the car has excluding the 	driver's seat.
+- Allowed deviation time: Time before depart time where people can still join.
+- Prefered payment method: This makes sure the driver and passengers agree to the same 	payment method
+In order to start a session a user needs to have a verified account. In order to upgrade an account to a verified one the user needs to fill in additional variables. The additional variables are the following:
+- Vehicle registration plate
+- Copy of driver's license
+
+## Who can see what?
+Since this app is only meant to be used by personel and student from the Erasmushogeschool Brussel the data is only available to these people. Using a login system we'll ensure the users trying to access the data are authenticated. A user can only see his/her created or joined sessions. A history tab will be available to see all session they have attended.
+
+## What happens to a user's data when his/her account has been removed
+Once the user decides to delete his/her account the login information used to login are no longer accepted denying him access to the system. This is done to make sure the user can't perform any CRUD - actions regarding the system while his/her account is disabled, doing this we'll ensure data persistence throughout the system. 
+A users data is completely removed once he/she doesn't have any archived or open sessions. All open sessions need to be terminated to delete account succesfully. The users participating to the session will get notified per e-mail to resolve any issues.
 
 # Threat model
 
