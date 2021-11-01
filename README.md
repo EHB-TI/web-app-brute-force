@@ -14,15 +14,19 @@ The goals we have in mind will be reached as soon as we can establish an encrypt
 - The users can use a map to pick a location easily.
 ## Requirements to start a session - Session life cycle
 A carpooling session starts whenever a user - in this case a driver - offers the possibility for other users - in this case a person in need of transport - to join him/her on the ride to campus. A passenger can only join the carpool X-min before the depart time. X is a variable that must be determined by the driver himself, by default this variable will be equal to 1 hour.
+
 A session goes through different statuses:
-- OPEN: the session has been created and is available for the users. A user can still 	update information regarding the session.
+- OPEN: the session has been created and is available for the users. A user can still update information regarding the session.
 - CLOSED: the session has begun and is no longer available for outside users
 - TERMINATED: the session has successfully been fullfilled
 - ARCHIVED: the session is archived in the driver's history for a period of 60 days
 - DELETED: the archived session is deleted from the DB after a period of 60 days
+- 
 Users can see OPEN - CLOSED sessions, while TERMINATED - ARCHIVED are only visible to the admin and creator/driver of said session.
 
-A session contains multiple variables, these have to be filled in by the driver of the carpool-session. The needed variables are the following:
+A session contains multiple variables, these have to be filled in by the driver of the carpool-session. 
+
+The needed variables are the following:
 - Title
 - Depart address
 - Depart date
@@ -31,7 +35,10 @@ A session contains multiple variables, these have to be filled in by the driver 
 - Amount of available seats: The amount of available seats the car has excluding the 	driver's seat.
 - Allowed deviation time: Time before depart time where people can still join.
 - Prefered payment method: This makes sure the driver and passengers agree to the same 	payment method
-In order to start a session a user needs to have a verified account. In order to upgrade an account to a verified one the user needs to fill in additional variables. The additional variables are the following:
+
+In order to start a session a user needs to have a verified account. In order to upgrade an account to a verified one the user needs to fill in additional variables. 
+
+The additional variables are the following:
 - Vehicle registration plate
 - Copy of driver's license
 
