@@ -45,6 +45,27 @@ namespace EHikeB.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+
+            [Required]
+            [Display(Name ="Firstname")]
+            [DataType(DataType.Text)]
+            public string Firstname { get; set; }
+            [Required]
+            [Display(Name ="Lastname")]
+            [DataType(DataType.Text)]
+            public string Lastname { get; set; }
+
+            [Required]
+            [Display(Name = "Student ID")]
+           
+            public string StudentID { get; set; }
+
+            [Required]
+            [Display(Name = "Phone number")]
+            [DataType(DataType.PhoneNumber, ErrorMessage ="Put a valid phone number")]
+            public string Phone { get; set; }
+
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
