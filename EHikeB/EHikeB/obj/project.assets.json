@@ -5721,19 +5721,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hamic\\.nuget\\packages\\": {}
+    "C:\\Users\\Omer Can\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hamic\\source\\repos\\web-app-brute-force\\EHikeB\\EHikeB\\EHikeB.csproj",
+      "projectUniqueName": "C:\\Users\\Omer Can\\source\\repos\\web-app-brute-force\\EHikeB\\EHikeB\\EHikeB.csproj",
       "projectName": "EHikeB",
-      "projectPath": "C:\\Users\\hamic\\source\\repos\\web-app-brute-force\\EHikeB\\EHikeB\\EHikeB.csproj",
-      "packagesPath": "C:\\Users\\hamic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hamic\\source\\repos\\web-app-brute-force\\EHikeB\\EHikeB\\obj\\",
+      "projectPath": "C:\\Users\\Omer Can\\source\\repos\\web-app-brute-force\\EHikeB\\EHikeB\\EHikeB.csproj",
+      "packagesPath": "C:\\Users\\Omer Can\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Omer Can\\source\\repos\\web-app-brute-force\\EHikeB\\EHikeB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hamic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Omer Can\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5802,7 +5802,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
