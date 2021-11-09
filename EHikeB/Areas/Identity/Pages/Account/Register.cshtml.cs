@@ -47,6 +47,26 @@ namespace EHikeB.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "Firstname")]
+            [DataType(DataType.Text)]
+            public string Firstname { get; set; }
+            [Required]
+            [Display(Name = "Lastname")]
+            [DataType(DataType.Text)]
+            public string Lastname { get; set; }
+
+            [Required]
+            [Display(Name = "Student ID")]
+
+            public string StudentID { get; set; }
+
+            [Required]
+            [Display(Name = "Phone number")]
+            [DataType(DataType.PhoneNumber, ErrorMessage = "Put a valid phone number")]
+            public string Phone { get; set; }
+
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -59,7 +79,7 @@ namespace EHikeB.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
 
