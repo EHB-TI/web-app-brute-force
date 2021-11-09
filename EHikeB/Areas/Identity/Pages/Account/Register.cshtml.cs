@@ -47,6 +47,26 @@ namespace EHikeB.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "First name")]
+            [DataType(DataType.Text)]
+            public string Firstname { get; set; }
+            [Required]
+            [Display(Name = "Last name")]
+            [DataType(DataType.Text)]
+            public string Lastname { get; set; }
+
+            [Required]
+            [Display(Name = "Personal student ID(on the back of your student card)")]
+
+            public int StudentID { get; set; }
+
+            [Required]
+            [Display(Name = "Phone number")]
+            [DataType(DataType.PhoneNumber, ErrorMessage = "Put a valid phone number")]
+            public string Phone { get; set; }
+
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -59,7 +79,7 @@ namespace EHikeB.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -75,7 +95,7 @@ namespace EHikeB.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Customer { UserName = Input.Email, Email = Input.Email };
+                var user = new Customer { UserName = Input.Email, Email = Input.Email, FirstName = Input.Firstname, LastName = Input.Lastname, StudentID = Input.StudentID, PhoneNumber = Input.Phone };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
