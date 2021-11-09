@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace EHikeB.Controllers
 {
     public class HomeController : Controller
@@ -32,6 +33,12 @@ namespace EHikeB.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult logout()
+        {
+          
+            
+            return Redirect("/");
         }
     }
 }

@@ -38,7 +38,7 @@ namespace EHikeB.Models
         [Compare(nameof(Password))]
         [Display(Name = "Retype password")]
         public string PasswordControl { get; set; }
-        public bool Verified { get; set; }
+      
         public ICollection<Car> Cars { get; set; }
     }
 }

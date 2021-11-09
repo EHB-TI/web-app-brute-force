@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Net.Mail;
 
 namespace EHikeB.Areas.Identity.Pages.Account
 {
@@ -103,14 +104,14 @@ namespace EHikeB.Areas.Identity.Pages.Account
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    sendEmail(callbackUrl, user.Email);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -130,6 +131,27 @@ namespace EHikeB.Areas.Identity.Pages.Account
 
             // If we got this far, something failed, redisplay form
             return Page();
+        }
+        public void sendEmail(string url,string receiver)
+        {
+             
+             MailMessage mail = new   MailMessage();
+           
+              mail.To.Add(receiver);
+              mail.From = new MailAddress("omer.can.ozdemir@student.ehb.be");
+            
+            mail.ReplyToList.Add("omer.can.ozdemir@student.ehb.be");
+            mail.Subject = "Confirmation mail";
+              mail.Body = "Please click on this link to confirm your mail: " + HtmlEncoder.Default.Encode(url);
+             mail.IsBodyHtml = true;
+             SmtpClient smtp = new SmtpClient();
+              smtp.Host = "smtp.office365.com";
+
+            smtp.Port = 587;
+            
+            smtp.Credentials = new  System.Net.NetworkCredential("mail", "password");
+              smtp.EnableSsl = true;
+            smtp.Send(mail);
         }
     }
 }
