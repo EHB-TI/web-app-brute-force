@@ -47,18 +47,18 @@ namespace EHikeB.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Firstname")]
+            [Display(Name = "First name")]
             [DataType(DataType.Text)]
             public string Firstname { get; set; }
             [Required]
-            [Display(Name = "Lastname")]
+            [Display(Name = "Last name")]
             [DataType(DataType.Text)]
             public string Lastname { get; set; }
 
             [Required]
-            [Display(Name = "Student ID")]
-
-            public string StudentID { get; set; }
+            [Display(Name = "Personal student ID(on the back of your student card)")]
+            
+            public int StudentID { get; set; }
 
             [Required]
             [Display(Name = "Phone number")]
@@ -95,7 +95,7 @@ namespace EHikeB.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Customer { UserName = Input.Email, Email = Input.Email };
+                var user = new Customer { UserName = Input.Email, Email = Input.Email, FirstName = Input.Firstname,LastName=Input.Lastname, StudentID = Input.StudentID,PhoneNumber = Input.Phone };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
