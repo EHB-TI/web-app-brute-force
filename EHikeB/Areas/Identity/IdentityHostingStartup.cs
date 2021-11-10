@@ -20,7 +20,7 @@ namespace EHikeB.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("EHikeBContextConnection")));
 
-                services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<EHikeBContext>();
             });
         }
