@@ -35,7 +35,7 @@ namespace EHikeB
                    options.UseSqlServer(
                        Configuration.GetConnectionString("EHikeBContextConnection")));
 
-            services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddEntityFrameworkStores<EHikeBContext>();
         }
 
