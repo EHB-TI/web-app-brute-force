@@ -148,7 +148,7 @@ namespace EHikeB.Areas.Identity.Pages.Account
               smtp.Host = "smtp.office365.com";
 
             smtp.Port = 587;
-            
+            //mail and password must be changed
             smtp.Credentials = new  System.Net.NetworkCredential("mail", "password");
               smtp.EnableSsl = true;
             smtp.Send(mail);
