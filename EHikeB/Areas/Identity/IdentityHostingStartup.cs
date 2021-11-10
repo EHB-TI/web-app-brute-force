@@ -15,14 +15,7 @@ namespace EHikeB.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
-                services.AddDbContext<EHikeBContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("EHikeBContextConnection")));
-
-                services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<EHikeBContext>();
-            });
+            
         }
     }
 }

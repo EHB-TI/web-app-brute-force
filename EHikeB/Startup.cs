@@ -1,4 +1,5 @@
 using EHikeB.Data;
+using EHikeB.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,13 @@ namespace EHikeB
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddDbContext<EHikeBContext>(options =>
+                   options.UseSqlServer(
+                       Configuration.GetConnectionString("EHikeBContextConnection")));
+
+            services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<EHikeBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
