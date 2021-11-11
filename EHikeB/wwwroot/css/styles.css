@@ -11923,14 +11923,16 @@ html {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 15rem;
-}using System;
+}
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EHikeB.wwwroot.css
-{
+namespace EHikeB.wwwroot.css {
     public class styles
-    {
-    }
+
+{
+}
 }

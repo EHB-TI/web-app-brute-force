@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EHikeB.Migrations
+namespace EHikeB.Data.Migrations
 {
-    [DbContext(typeof(EHikeBContext))]
-    [Migration("20211109143519_models-migrate")]
-    partial class modelsmigrate
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20211111001755_initial-migrate")]
+    partial class initialmigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,7 +95,6 @@ namespace EHikeB.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -123,9 +122,6 @@ namespace EHikeB.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
-
-                    b.Property<bool>("Verified")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
