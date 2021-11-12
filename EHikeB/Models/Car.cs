@@ -30,10 +30,6 @@ namespace EHikeB.Models
         [PersonalData]
         [Display(Name = "Plate number of the vehicle")]
         public string Plate { get; set; }
-        [Required]
-        [NotMapped]
-        [Compare(nameof(Plate))]
-        public string PlateControle { get; set; }
 
     }
 }
