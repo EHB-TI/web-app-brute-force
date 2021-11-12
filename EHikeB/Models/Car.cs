@@ -35,5 +35,15 @@ namespace EHikeB.Models
         [Compare(nameof(Plate))]
         [Display(Name = "Retype the plate number")]
         public string PlateControl { get; set; }
+
+        public Car(int iD, string model, int seats, Energy energy, string plate, string plateControl)
+        {
+            ID = iD;
+            Model = model;
+            Seats = seats;
+            Energy = energy;
+            Plate = plate;
+            PlateControl = plateControl;
+        }
     }
 }
