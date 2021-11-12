@@ -33,7 +33,7 @@ namespace EHikeB.Models
         [Required]
         [NotMapped]
         [Compare(nameof(Plate))]
-        [Display(Name = "Retype the plate number")]
-        public string PlateControl { get; set; }
+        public string PlateControle { get; set; }
+
     }
 }
