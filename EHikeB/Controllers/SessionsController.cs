@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EHikeB.Data;
 using EHikeB.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace EHikeB.Controllers
 {
@@ -15,16 +16,21 @@ namespace EHikeB.Controllers
     public class SessionsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<Customer> _userManager;
 
-        public SessionsController(ApplicationDbContext context)
+
+        public SessionsController(ApplicationDbContext context, UserManager<Customer> userManager)
         {
             _context = context;
+            _userManager = userManager;
+          
         }
 
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
             return View(await _context.Sessions.ToListAsync());
+ 
         }
 
         // GET: Sessions/Details/5
