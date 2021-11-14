@@ -35,15 +35,7 @@ namespace EHikeB.Models
         public Status Status { get; set; }
         public ICollection<Customer> Hikers { get; set; }
 
-        public Session(int sessionID, string startLocation, string endLocation, DateTime startTime, DateTime deviationTime, Status status)
-        {
-            SessionID = sessionID;
-            StartLocation = startLocation;
-            EndLocation = endLocation;
-            StartTime = startTime;
-            DeviationTime = deviationTime;
-            Status = status;
-        }
+    
     }
 
 }
