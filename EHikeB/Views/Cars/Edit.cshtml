@@ -25,7 +25,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Energy" class="control-label"></label>
-                <select asp-for="Energy" class="form-control"></select>
+                <select asp-for="Energy" asp-items="Html.GetEnumSelectList<Energy>()" class="form-control">
+                    <option selected="selected" value="">Kies een waarde...</option>
+                </select>
                 <span asp-validation-for="Energy" class="text-danger"></span>
             </div>
             <div class="form-group">

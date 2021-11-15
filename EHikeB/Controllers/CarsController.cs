@@ -73,7 +73,10 @@ namespace EHikeB.Controllers
                 // get current user
                 // create collection and add new car
                 Customer authUser = await _userManager.GetUserAsync(User);
-                authUser.Cars = new List<Car>();
+                if (authUser.Cars == null)
+                {
+                    authUser.Cars = new List<Car>();
+                }
                 car.CustomerID = authUser.Id;
                 authUser.Cars.Add(car);
 
