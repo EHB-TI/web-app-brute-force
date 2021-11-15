@@ -28,7 +28,12 @@ namespace EHikeB.Controllers
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cars.ToListAsync());
+            Customer authUser = await _userManager.GetUserAsync(User);
+
+            var cars = _context.Cars.Where(x => x.CustomerID == authUser.Id);
+
+
+            return View(cars);
         }
 
         // GET: Cars/Details/5
@@ -50,13 +55,8 @@ namespace EHikeB.Controllers
         }
 
         // GET: Cars/Create
-        public async Task<IActionResult> CreateAsync()
+        public IActionResult Create()
         {
-            Customer authUser = await _userManager.GetUserAsync(User);
-            Console.WriteLine(authUser.Cars);
-            
-
-
             return View();
         }
 
@@ -116,6 +116,8 @@ namespace EHikeB.Controllers
             {
                 try
                 {
+                    var authUser = await _userManager.GetUserAsync(User);
+                    car.CustomerID = authUser.Id;
                     _context.Update(car);
                     await _context.SaveChangesAsync();
                 }
