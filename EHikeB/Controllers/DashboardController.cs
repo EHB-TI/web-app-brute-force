@@ -34,37 +34,20 @@ namespace EHikeB.Controllers
 
         public List<Car> getHardcodedCars()
         {
-
-            Car car = new Car();
-            car.ID = 1;
-            car.Model = "Audi R8";
-            car.Seats = 2;
-            car.Energy = Energy.BENZINE;
-            car.Plate = "1-ret-215";
-
-            Car car2 = new Car();
-            car2.ID = 2;
-            car2.Model = "Mercedes";
-            car2.Seats = 2;
-            car2.Energy = Energy.BENZINE;
-            car2.Plate = "1-ret-156";
-
-            return  new List<Car> { car, car2 };
-
-           
+            return new List<Car>
+            {
+                new Car(1, "Audi r8", 2, Energy.DIESEL, "1-ret-215", "jsp"),
+                new Car(5, "Mercedes Class A", 5, Energy.DIESEL, "1-ret-215", "jsp")
+            };
 
         }
        public List<Session> getHardCodedSessions()
         {
-            Session session= new Session();
-            session.SessionID = 1;
-            session.Status = Status.OPEN;
-            session.StartLocation = "Rue de la comtesse de flandre";
-            session.StartTime = DateTime.Now;
-            session.EndLocation = "EHB";
-            session.DeviationTime = DateTime.Now.AddMinutes(15);
-
-            return new List<Session> {session };
+            return new List<Session>
+            {
+                new Session(1,"rue de la commtesse de flandre","Ehb",DateTime.Today,DateTime.Today.AddHours(1),Status.OPEN),
+                new Session(2,"Rue tivoli","Ehb",DateTime.Today,DateTime.Today.AddHours(1),Status.ARCHIVED)
+            };
         }
     }
 }
