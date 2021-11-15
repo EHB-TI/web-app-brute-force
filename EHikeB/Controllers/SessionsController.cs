@@ -23,14 +23,16 @@ namespace EHikeB.Controllers
         {
             _context = context;
             _userManager = userManager;
-          
+
         }
 
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Sessions.ToListAsync());
- 
+            Customer authUser = await _userManager.GetUserAsync(User);
+            var sessions = _context.Sessions.Where(x => x.Driver.Id == authUser.Id);
+            return View(sessions);
+
         }
 
         // GET: Sessions/Details/5
@@ -52,8 +54,22 @@ namespace EHikeB.Controllers
         }
 
         // GET: Sessions/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            Customer authUser = await _userManager.GetUserAsync(User);
+
+            var cars = _context.Cars.Where(x => x.CustomerID == authUser.Id);
+
+            List<string> car_names = new List<string>();
+
+            foreach (var x in cars)
+            {
+                car_names.Add(x.Model);
+
+            }
+
+            ViewBag.Cars = car_names;
+           
             return View();
         }
 
@@ -66,6 +82,8 @@ namespace EHikeB.Controllers
         {
             if (ModelState.IsValid)
             {
+                Customer authUser = await _userManager.GetUserAsync(User);
+                session.Driver = authUser;
                 _context.Add(session);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

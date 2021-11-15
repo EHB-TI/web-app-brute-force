@@ -1,5 +1,6 @@
 ﻿@model EHikeB.Models.Session
 
+
 @{
     ViewData["Title"] = "Create";
 }
@@ -32,17 +33,23 @@
                 <span asp-validation-for="DeviationTime" class="text-danger"></span>
             </div>
 
+            <div class="form-group">
+                <label asp-for="Car" class="control-label"></label>
+                <select asp-for="Car" asp-items="@(new SelectList(ViewBag.Cars))" class="form-control"></select>
+                <span asp-validation-for="Car" class="text-danger"></span>
+            </div>
+
             <div class="form-group d-grid gap-2 d-md-flex justify-content-md-end">
                 <input type="submit" value="Create" class=" btn btn-primary text-center btn-lg" />
             </div>
         </form>
-        </div>
     </div>
+</div>
 
-        <div>
-            <a asp-action="Index">&laquo; Back to List</a>
-        </div>
+<div>
+    <a asp-action="Index">&laquo; Back to List</a>
+</div>
 
-        @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
