@@ -31,5 +31,7 @@ namespace EHikeB.Models
         [Display(Name = "Plate number of the vehicle")]
         public string Plate { get; set; }
 
+        public string CustomerID { get; set; }
+
     }
 }

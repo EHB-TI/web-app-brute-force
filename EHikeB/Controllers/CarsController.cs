@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EHikeB.Data;
 using EHikeB.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace EHikeB.Controllers
 {
+    [Authorize]
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CarsController(ApplicationDbContext context)
+        private readonly UserManager<Customer> _userManager;
+
+        public CarsController(ApplicationDbContext context, UserManager<Customer> userManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _context = context;      
         }
 
         // GET: Cars
@@ -44,8 +50,13 @@ namespace EHikeB.Controllers
         }
 
         // GET: Cars/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            Customer authUser = await _userManager.GetUserAsync(User);
+            Console.WriteLine(authUser.Cars);
+            
+
+
             return View();
         }
 
@@ -56,9 +67,17 @@ namespace EHikeB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Model,Seats,Energy,Plate")] Car car)
         {
+            
             if (ModelState.IsValid)
             {
-                _context.Add(car);
+                // get current user
+                // create collection and add new car
+                Customer authUser = await _userManager.GetUserAsync(User);
+                authUser.Cars = new List<Car>();
+                car.CustomerID = authUser.Id;
+                authUser.Cars.Add(car);
+
+                _context.Update(authUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
