@@ -10,11 +10,13 @@ namespace EHikeB.Areas.Identity.Pages.Account.Manage
     {
         public static string Index => "Index";
 
-        public static string Cars => "Cars";
-
         public static string Email => "Email";
 
         public static string ChangePassword => "ChangePassword";
+
+        public static string Sessions => "Sessions";
+
+        public static string Cars => "Cars";
 
         public static string DownloadPersonalData => "DownloadPersonalData";
 
@@ -27,11 +29,14 @@ namespace EHikeB.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
-        public static string CarsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Cars);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
+
+        public static string CarsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Cars);
+
+        public static string SessionsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Sessions);
 
         public static string DownloadPersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, DownloadPersonalData);
 
