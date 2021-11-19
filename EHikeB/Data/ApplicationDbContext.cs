@@ -16,5 +16,7 @@ namespace EHikeB.Data
         public DbSet<Car> Cars { get; set; }
         public DbSet<Session> Sessions { get; set; }
 
+        public DbSet<Customer> Customers { get; set; }
+
     }
 }

@@ -28,13 +28,13 @@ namespace EHikeB.Controllers
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-            //Customer authUser = await _userManager.GetUserAsync(User);
+            Customer authUser = await _userManager.GetUserAsync(User);
 
-            //var cars = _context.Cars.Where(x => x.CustomerID == authUser.Id);
+            var cars = _context.Cars.Where(x => x.CustomerID == authUser.Id);
 
-            //return View(cars);
+            return View(cars);
 
-            return View();
+            
         }
 
         // GET: Cars/Details/5

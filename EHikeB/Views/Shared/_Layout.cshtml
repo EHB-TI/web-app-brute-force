@@ -31,7 +31,7 @@
     <main class="flex-shrink-0" role="main">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-5">
+            <div class="container ">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EhikeB</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -42,21 +42,23 @@
 
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Search" asp-action="Index">Search</a></li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@User.Identity.Name!</a>
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">@User.Identity.Name</a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                     <li class="dropdown-item">
-                                        <a class="nav-link btn btn-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Dashboard</a>
+                                        <a class="nav-link btn btn-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
                                     </li>
                                     <li>
                                         <form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                                             <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                                         </form>
                                     </li>
-                                    
+
                                 </ul>
                             </li>
+
                         }
                         else
                         {
