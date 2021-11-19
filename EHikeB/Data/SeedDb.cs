@@ -1,6 +1,7 @@
 ﻿using EHikeB.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,27 +14,38 @@ namespace EHikeB.Data
         {
             context.Database.EnsureCreated();
 
-            if (context.Customers.Any())
+            if (!context.Locations.Any())
+            {
+                string text = System.IO.File.ReadAllText(@"wwwroot/zip.json");
+                var list = JsonConvert.DeserializeObject<List<Location>>(text);
+                context.AddRange(list);
+            }
+            else
             {
                 return;
             }
 
-            //Customers
-            var customer1 = new Customer() { };
+            //if (context.Customers.Any())
+            //{
+            //    return;
+            //}
 
-            context.Customers.AddRange(new Customer[] { customer1 });
+            ////Customers
+            //var customer1 = new Customer() { };
+
+            //context.Customers.AddRange(new Customer[] { customer1 });
 
 
-            //Cars
-            var car1 = new Car() { };
+            ////Cars
+            //var car1 = new Car() { };
 
-            context.Cars.AddRange(new Car[] { car1 });
+            //context.Cars.AddRange(new Car[] { car1 });
 
 
-            //Sessions
-            var session1 = new Session() { };
+            ////Sessions
+            //var session1 = new Session() { };
 
-            context.Sessions.AddRange(new Session[] { session1 });
+            //context.Sessions.AddRange(new Session[] { session1 });
 
 
 
