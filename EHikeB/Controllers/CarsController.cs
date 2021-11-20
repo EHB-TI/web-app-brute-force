@@ -32,8 +32,9 @@ namespace EHikeB.Controllers
 
             var cars = _context.Cars.Where(x => x.CustomerID == authUser.Id);
 
-
             return View(cars);
+
+            
         }
 
         // GET: Cars/Details/5
@@ -73,7 +74,10 @@ namespace EHikeB.Controllers
                 // get current user
                 // create collection and add new car
                 Customer authUser = await _userManager.GetUserAsync(User);
-                authUser.Cars = new List<Car>();
+                if (authUser.Cars == null)
+                {
+                    authUser.Cars = new List<Car>();
+                }
                 car.CustomerID = authUser.Id;
                 authUser.Cars.Add(car);
 

@@ -1,0 +1,24 @@
+﻿@inject SignInManager<Customer> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav  flex-column">
+    <li class="und"><a class="text-black nav-link  @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+    <li class=""><a class="text-black nav-link  @ManageNavPages.SessionsNavClass(ViewContext)" id="sessions" asp-page="./GoToSessions">Sessions</a></li>
+    <li class=""><a class="text-black nav-link  @ManageNavPages.CarsNavClass(ViewContext)" id="cars" asp-page="./GoToCars">Cars</a></li>
+    <li class=""><a class="text-black nav-link  @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
+    <li class=""><a class="text-black nav-link  @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+    @if (hasExternalLogins)
+    {
+        <li id="external-logins" class=""><a id="external-login" class="text-black nav-link  @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+    }
+    <li class=""><a class="text-black nav-link  @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
+    <li class=""><a class="text-black nav-link  @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+</ul>
+
+<style type="text/css">
+    li:hover {
+        
+        text-decoration: underline;
+    }
+</style>
