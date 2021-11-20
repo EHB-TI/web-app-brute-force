@@ -27,9 +27,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DeviationTime)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Status)
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -48,9 +45,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DeviationTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a> |

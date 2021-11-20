@@ -26,7 +26,7 @@ namespace EHikeB
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
             host.Run();

@@ -58,17 +58,9 @@ namespace EHikeB.Controllers
         {
             Customer authUser = await _userManager.GetUserAsync(User);
 
-            var cars = _context.Cars.Where(x => x.CustomerID == authUser.Id);
+            var cars = new SelectList(_context.Cars.Where(x => x.CustomerID == authUser.Id).Select(x => x.Model));
 
-            List<string> car_names = new List<string>();
-
-            foreach (var x in cars)
-            {
-                car_names.Add(x.Model);
-
-            }
-
-            ViewBag.Cars = car_names;
+            ViewBag.Cars = cars;
            
             return View();
         }
@@ -78,12 +70,20 @@ namespace EHikeB.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SessionID,StartLocation,EndLocation,StartTime,DeviationTime,Status")] Session session)
+        public async Task<IActionResult> CreateAsync([Bind("SessionID,StartLocation,EndLocation,StartTime,DeviationTime,Status")] Session session)
         {
+            string car_name = Request.Form["car"];
+
+
+            Car car = await _context.Cars.FirstOrDefaultAsync(x => x.Model == car_name);
+
+
             if (ModelState.IsValid)
             {
+                
                 Customer authUser = await _userManager.GetUserAsync(User);
                 session.Driver = authUser;
+                session.Car = car;
                 _context.Add(session);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

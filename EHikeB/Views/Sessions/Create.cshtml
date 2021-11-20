@@ -37,9 +37,8 @@
                 </div>
 
                 <div class="form-group text-center mb-3">
-                    <label asp-for="Car" class="control-label">Select the car you are going to use</label>
-                    <select asp-for="Car" asp-items="@(new SelectList(ViewBag.Cars))" class="form-control"></select>
-                    <span asp-validation-for="Car" class="text-danger"></span>
+                    <label  class="control-label">Select the car you are going to use</label>
+                    <select id="car" asp-items="ViewBag.Cars" name="car" class="form-control"></select>
                 </div>
 
                 <div class="form-group d-grid gap-2 d-md-flex justify-content-md-end">
