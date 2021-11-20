@@ -1,5 +1,8 @@
-﻿@page
-@model IEnumerable<EHikeB.Models.Session>
+﻿@model IEnumerable<EHikeB.Models.Session>
+
+@{
+    ViewData["Title"] = "Index";
+}
 
 
 <div class="py-5 container">
@@ -31,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -55,7 +58,7 @@
                         <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
                     </td>
                 </tr>
-              }*@
+            }
         </tbody>
     </table>
 </div>
