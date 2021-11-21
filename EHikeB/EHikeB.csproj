@@ -10,6 +10,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20211119191400_zip-address.cs" />
     <Compile Remove="Data\Migrations\20211119191400_zip-address.Designer.cs" />
+    <Compile Remove="Data\Migrations\20211121170325_adress-aanpassing.cs" />
+    <Compile Remove="Data\Migrations\20211121170325_adress-aanpassing.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

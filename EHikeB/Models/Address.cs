@@ -17,10 +17,9 @@ namespace EHikeB.Models
         public string StreetName { get; set; }
         [Display(Name = "Number")]
         public string StreetNumber { get; set; }
-        [Required]
-        [ZipValidation(ErrorMessage = "Please enter a valid zip code")]
-        [Display(Name = "ZIP code")]
-        public string ZipCode { get; set; }
+        [ForeignKey("Location")]
+        public int LocationId { get; set; }
+        public virtual Location Location { get; set; }
         [NotMapped]
         [Display(Name = "City")]
         public string City { get; set; }

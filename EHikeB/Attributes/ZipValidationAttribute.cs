@@ -11,18 +11,9 @@ namespace EHikeB.Attributes
         public override bool IsValid(object value)
         {
             
-            if (value is string zip)
+            if (value is int zip)
             {
-                try
-                {
-                    int zipcode = int.Parse(zip);
-                    return zipcode < 1000 && zipcode < 9999;
-                }
-                catch (Exception)
-                {
-
-                    return false;
-                }
+                return zip < 1000 && zip < 9999;
             }
             return base.IsValid(value);
         }

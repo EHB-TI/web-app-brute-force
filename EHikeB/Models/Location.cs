@@ -10,7 +10,7 @@ namespace EHikeB.Models
     {
         [Key]
         public int Id { get; set; }
-        public string zip { get; set; }
+        public int zip { get; set; }
         public string city { get; set; }
         public float lng { get; set; }
         public float lat { get; set; }
