@@ -30,7 +30,12 @@ namespace EHikeB.Controllers
         public async Task<IActionResult> Index()
         {
             Customer authUser = await _userManager.GetUserAsync(User);
-            var sessions = _context.Sessions.Where(x => x.Driver.Id == authUser.Id);
+            List<Session> sessions = new List<Session>(_context.Sessions.Where(x => x.Driver.Id == authUser.Id));
+
+            foreach (Session a in sessions)
+            {
+                a.Address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == a.AddressId);
+            }
             return View(sessions);
 
         }
@@ -38,17 +43,27 @@ namespace EHikeB.Controllers
         // GET: Sessions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
+            Customer authUser = await _userManager.GetUserAsync(User);
+
+
             var session = await _context.Sessions
                 .FirstOrDefaultAsync(m => m.SessionID == id);
-            if (session == null)
+            if (session == null || session.DriverId != authUser.Id )
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
+
+            session.Car = await _context.Cars.FirstOrDefaultAsync(x => x.ID == session.CarID);
+            session.Address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == session.AddressId);
+
+
+
 
             return View(session);
         }
@@ -58,10 +73,28 @@ namespace EHikeB.Controllers
         {
             Customer authUser = await _userManager.GetUserAsync(User);
 
+
+
             var cars = new SelectList(_context.Cars.Where(x => x.CustomerID == authUser.Id).Select(x => x.Model));
 
+
+            if (cars == null || cars.Count() <= 0)
+            {
+                return RedirectToAction("Create", "Cars");
+            }
+
+
+            var addresses = new SelectList(_context.Addresses.Where(x => x.CustomerId == authUser.Id).Select(x => x.StreetName));
+
+            if (addresses == null || addresses.Count() <= 0)
+            {
+                return RedirectToAction("Create", "Addresses");
+            }
+
+
             ViewBag.Cars = cars;
-           
+            ViewBag.Adress = addresses;
+
             return View();
         }
 
@@ -70,20 +103,22 @@ namespace EHikeB.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateAsync([Bind("SessionID,StartLocation,EndLocation,StartTime,DeviationTime,Status")] Session session)
+        public async Task<IActionResult> CreateAsync([Bind("SessionID,StartLocation,EndLocation,StartTime,DeviationTime,Status,PaiementMethod")] Session session)
         {
             string car_name = Request.Form["car"];
-
+            string street = Request.Form["adress"];
 
             Car car = await _context.Cars.FirstOrDefaultAsync(x => x.Model == car_name);
+            Address adress = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName == street);
 
 
             if (ModelState.IsValid)
             {
-                
+
                 Customer authUser = await _userManager.GetUserAsync(User);
                 session.Driver = authUser;
                 session.Car = car;
+                session.Address = adress;
                 _context.Add(session);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,56 +126,7 @@ namespace EHikeB.Controllers
             return View(session);
         }
 
-        // GET: Sessions/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var session = await _context.Sessions.FindAsync(id);
-            if (session == null)
-            {
-                return NotFound();
-            }
-            return View(session);
-        }
-
-        // POST: Sessions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SessionID,StartLocation,EndLocation,StartTime,DeviationTime,Status")] Session session)
-        {
-            if (id != session.SessionID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(session);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!SessionExists(session.SessionID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(session);
-        }
+        
 
         // GET: Sessions/Delete/5
         public async Task<IActionResult> Delete(int? id)

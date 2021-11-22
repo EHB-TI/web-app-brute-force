@@ -25,13 +25,16 @@ namespace EHikeB.Models
         [Key]
         public int SessionID { get; set; }
         public Customer Driver { get; set; }
+        public string DriverId { get; set; }
         public Car Car { get; set; }
+        public int CarID { get; set; }
         [Required]
         [Display(Name = "Departure time")]
         public DateTime StartTime { get; set; }
         [Required]
         [Display(Name = "Meeting time at arrival location")]
         public DateTime DeviationTime { get; set; }
+        public int AddressId { get; set; }
         public Address Address { get; set; }
         [Required]
         public Status Status { get; set; }

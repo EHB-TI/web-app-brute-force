@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using EHikeB.Data;
 using EHikeB.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EHikeB.Controllers
 {
+    [Authorize]
     public class AddressesController : Controller
     {
         private readonly ApplicationDbContext _context;

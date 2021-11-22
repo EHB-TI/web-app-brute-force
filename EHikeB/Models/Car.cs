@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EHikeB.Attributes;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,7 @@ namespace EHikeB.Models
         public Energy Energy { get; set; }
         [Required]
         [PersonalData]
+        [PlateValidationAttribute(ErrorMessage = "Naam moet in de vorm 1-aaa-111")]
         [Display(Name = "Plate number of the vehicle")]
         public string Plate { get; set; }
         public string CustomerID { get; set; }

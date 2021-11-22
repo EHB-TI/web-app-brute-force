@@ -22,14 +22,25 @@
                     <span asp-validation-for="StartTime" class="text-danger"></span>
                 </div>
                 <div class="form-group text-center mb-3">
-                    <label asp-for="DeviationTime" class="control-label"></label>
+                    <label class="control-label">Meeting time</label>
                     <input asp-for="DeviationTime" class="form-control" />
                     <span asp-validation-for="DeviationTime" class="text-danger"></span>
                 </div>
 
                 <div class="form-group text-center mb-3">
-                    <label  class="control-label">Select the car you are going to use</label>
+                    <label class="control-label">Select the car you are going to use</label>
                     <select id="car" asp-items="ViewBag.Cars" name="car" class="form-control"></select>
+                </div>
+
+                <div class="form-group text-center mb-3">
+                    <label class="control-label">Select adress</label>
+                    <select id="adress" asp-items="ViewBag.Adress" name="adress" class="form-control"></select>
+                </div>
+
+                <div class="form-group text-center mb-3">
+                    <label class="control-label">Paiement method</label>
+                    <select asp-for="PaiementMethod" asp-items="Html.GetEnumSelectList<Paiement>()" class="form-control"></select>
+                    <span asp-validation-for="PaiementMethod" class="text-danger"></span>
                 </div>
 
                 <div class="form-group d-grid gap-2 d-md-flex justify-content-md-end">

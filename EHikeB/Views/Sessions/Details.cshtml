@@ -15,7 +15,7 @@
     <div class="row gx-5 justify-content-center ml-0 mr-0">
         <div class="col-lg-8">
             <dl class="row">
-                
+
                 <dt class="col-sm-5">
                     @Html.DisplayNameFor(model => model.StartTime)
                 </dt>
@@ -23,10 +23,22 @@
                     @Html.DisplayFor(model => model.StartTime)
                 </dd>
                 <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.DeviationTime)
+                    Meeting time
                 </dt>
                 <dd class="col-sm-7">
                     @Html.DisplayFor(model => model.DeviationTime)
+                </dd>
+                <dt class="col-sm-5">
+                    Car
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.Car.Model)
+                </dd>
+                <dt class="col-sm-5">
+                    Address
+                </dt>
+                <dd class="col-sm-7">
+                    @Html.DisplayFor(model => model.Address.StreetName)  @Html.DisplayFor(model => model.Address.StreetNumber)
                 </dd>
                 <dt class="col-sm-5">
                     @Html.DisplayNameFor(model => model.Status)
