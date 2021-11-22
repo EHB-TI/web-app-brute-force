@@ -49,7 +49,7 @@ A users data is completely removed once he/she doesn't have any archived or open
 
 # Threat model
 
-![Threat Model](images/threat_model/threat_model_EHikeB.png)
+![Threat Model](images/threat_model/EhikeB_Threat_Model (2).png)
 
 ## Data Acces and Exposure
 - Injection : Use Parameterized SQL commands for all data access.
