@@ -32,9 +32,7 @@ Users can see OPEN - CLOSED sessions, while TERMINATED - ARCHIVED are only visib
 - **Depart address**
 - **Depart date**
 - **Depart time**
-- **Rate per Km**
 - **Amount of available seats:** The amount of available seats the car has excluding the driver's seat.
-- **Allowed deviation time:** Time before depart time where people can still join.
 - **Prefered payment method:** This makes sure the driver and passengers agree to the same payment method.
 
 ### In order to start a session a user needs to have a verified account. In order to upgrade an account to a verified one the user needs to fill in additional variables. 
