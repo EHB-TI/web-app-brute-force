@@ -17,6 +17,7 @@ namespace EHikeB.Areas.Identity.Pages.Account.Manage
         public static string Sessions => "Sessions";
 
         public static string Cars => "Cars";
+        public static string Addresses => "Addresses";
 
         public static string DownloadPersonalData => "DownloadPersonalData";
 
@@ -35,6 +36,8 @@ namespace EHikeB.Areas.Identity.Pages.Account.Manage
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
 
         public static string CarsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Cars);
+        public static string AddressesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Addresses);
+
 
         public static string SessionsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Sessions);
 

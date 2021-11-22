@@ -40,6 +40,7 @@ namespace EHikeB.Models
         [Required]
         public Status Status { get; set; }
         public ICollection<Customer> Hikers { get; set; }
+        [Display(Name = "Paiement method")]
         public Paiement PaiementMethod { get; set; }
     }
 }
