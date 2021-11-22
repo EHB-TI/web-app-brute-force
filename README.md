@@ -57,8 +57,9 @@ A users data is completely removed once he/she doesn't have any archived or open
 - We will not store Encrypted password. 
 - Enforce passwords with a minimum complexity that will survive a dictionary attack i.e. longer passwords that use the full character set (numbers, symbols and letters) to increase the entropy.
 - Use a strong encryption routine such as AES-512 where personally identifiable data needs to be restored to it's original format.
-- Use TLS 1.2 for the entire site.
+- Use TLS 1.2 for the entire site. Entities within a trust boundary trust each other more than entities external to the trust boundary. Usually some form of authentication is required when a trust boundary is transgressed, TLS and HTTPS are used to authenticate the different entities upon transgression. Using TLS and HTTPS we hope to stop Man-in-the-middle attacks. HTTPS can be used to securely communicate over HTTP using public-private key exchange. This prevents an attacker from having any use of the data he may be sniffing. 
 - Ensure headers are not disclosing information about your application.
+- Cloudflare will help protect our site against brute-force and attacks and threats. Cloudflare has the advantage of serving over 12 million websites and so can identify malicious bots and users more easily than any operating system firewall. These firewall and security measures are ever evolving and being developed, meaning every day your website is becoming more secure and protected.
 
 ## Broken Access Control
 - Reduce the time period a session can be stolen in by reducing session timeout and removing sliding expiration.
