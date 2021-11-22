@@ -142,7 +142,12 @@
 
             let option = document.createElement("option");
 
-            option.value = streets.results[street].address.freeformAddress + ", " + streets.results[street].address.countrySecondarySubdivision;
+            if (streets.results[street].address.countrySecondarySubdivision) {
+                option.value = streets.results[street].address.freeformAddress + ", " + streets.results[street].address.countrySecondarySubdivision;
+            } else {
+                option.value = streets.results[street].address.freeformAddress;
+            }
+
 
             datalist.appendChild(option);
 

@@ -72,9 +72,6 @@ namespace EHikeB.Controllers
         public async Task<IActionResult> CreateAsync()
         {
             Customer authUser = await _userManager.GetUserAsync(User);
-
-
-
             var cars = new SelectList(_context.Cars.Where(x => x.CustomerID == authUser.Id).Select(x => x.Model));
 
 
@@ -83,9 +80,7 @@ namespace EHikeB.Controllers
                 return RedirectToAction("Create", "Cars");
             }
 
-
             var addresses = new SelectList(_context.Addresses.Where(x => x.CustomerId == authUser.Id).Select(x => x.StreetName));
-
             if (addresses == null || addresses.Count() <= 0)
             {
                 return RedirectToAction("Create", "Addresses");
@@ -105,6 +100,8 @@ namespace EHikeB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateAsync([Bind("SessionID,StartLocation,EndLocation,StartTime,DeviationTime,Status,PaiementMethod")] Session session)
         {
+            Customer authUser = await _userManager.GetUserAsync(User);
+
             string car_name = Request.Form["car"];
             string street = Request.Form["adress"];
 
@@ -115,7 +112,6 @@ namespace EHikeB.Controllers
             if (ModelState.IsValid)
             {
 
-                Customer authUser = await _userManager.GetUserAsync(User);
                 session.Driver = authUser;
                 session.Car = car;
                 session.Address = adress;
@@ -123,6 +119,27 @@ namespace EHikeB.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+
+            var cars = new SelectList(_context.Cars.Where(x => x.CustomerID == authUser.Id).Select(x => x.Model));
+
+
+            if (cars == null || cars.Count() <= 0)
+            {
+                return RedirectToAction("Create", "Cars");
+            }
+
+            var addresses = new SelectList(_context.Addresses.Where(x => x.CustomerId == authUser.Id).Select(x => x.StreetName));
+            if (addresses == null || addresses.Count() <= 0)
+            {
+                return RedirectToAction("Create", "Addresses");
+            }
+
+
+            ViewBag.Cars = cars;
+            ViewBag.Adress = addresses;
+
+
             return View(session);
         }
 

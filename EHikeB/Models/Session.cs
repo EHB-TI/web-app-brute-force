@@ -33,9 +33,6 @@ namespace EHikeB.Models
         [Display(Name = "Departure time")]
         [DateValidationAttribute(ErrorMessage = "Select a futur date")]
         public DateTime StartTime { get; set; }
-        [Required]
-        [Display(Name = "Meeting time at arrival location")]
-        public DateTime DeviationTime { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
         [Required]
