@@ -18,6 +18,7 @@ namespace EHikeB.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerSession> CustomerSessions { get; set; }
 
     }
 }

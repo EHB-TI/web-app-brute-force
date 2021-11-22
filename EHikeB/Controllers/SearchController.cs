@@ -1,6 +1,7 @@
-﻿using EHikeB.Data;
+﻿ using EHikeB.Data;
 using EHikeB.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,28 +13,64 @@ namespace EHikeB.Controllers
     public class SearchController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public SearchController(ApplicationDbContext context)
+        private readonly UserManager<Customer> _userManager;
+        public SearchController(ApplicationDbContext context, UserManager<Customer> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
-        //public List<Session> getSessions(string postal, string date)
-        //{
-        //    _context.Sessions.Where(s => s);
-        //}
-
-
-        // GET: SearchController
-        public ActionResult Index()
+        public bool checkAvailableSeats(int SessionId)
         {
-            return View();
+            Session session = _context.Sessions.Where(p => p.SessionID == SessionId).First();
+            Car car = _context.Cars.Where(p => p.ID == session.CarID).First();
+            int number = _context.CustomerSessions.Where(p => p.SessionId == SessionId).Count();
+            if(number == car.Seats-1)
+            {
+                return false;
+            }
+            return true;
         }
 
 
-        public ActionResult Index(string? postal, string? date)
+        public async Task<ActionResult> Join(int Join)
         {
+            var session = _context.Sessions.Where(s => s.SessionID == Join).First();
+            bool check = checkAvailableSeats(Join);
+            if (!check)
+            {
+                return View();
+            }
+            Customer authUser = await _userManager.GetUserAsync(User);
+            CustomerSession customerSession = new CustomerSession() { SessionId = Join, CustomerId = authUser.Id, Customer = authUser};
+            _context.Add(customerSession);
+            _context.SaveChanges();
+            return View("index");
+        }
 
-            return View();
+        // GET: SearchController
+        public ActionResult Index(int? zipCode)
+        {
+            if (zipCode == null)
+            {
+                return View();
+            }
+            List<Session> sessions = _context.Sessions.Where(p => p.Address.Zipcode == 0 && p.Status == Status.OPEN ).ToList();
+            Console.WriteLine(sessions);
+            foreach(Session item in sessions)
+            {
+                if (!checkAvailableSeats(item.SessionID))
+                {
+                    sessions.Remove(item);
+                }
+                else
+                {
+                    item.Available = checkAvailableSeats(item.SessionID);
+                    item.Car = _context.Cars.Where(p => p.ID == item.CarID).FirstOrDefault();
+                    item.Address = _context.Addresses.Where(p => p.Id == item.AddressId).FirstOrDefault();
+                }
+            }
+            return View(sessions);
         }
     }
 }

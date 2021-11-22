@@ -45,12 +45,52 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.PaiementMethod)
                     </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    Created sessions
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </th>
+                <th>
+                    Meeting time
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address.StreetName)
+                </th>
+                <th>
+                    Paiement method
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>@(ViewBag.data as ICollection<Session>)</td>
+                @{var getlist= ViewBag.My_sessions as IEnumerable<Session>;
+            @foreach (var item in getlist)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address.StreetName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaiementMethod)
+                    </td>
                     <td>
                         <a class="link-dark" asp-action="Details" asp-route-id="@item.SessionID">Details</a> |
                         <a class="link-dark" asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
                     </td>
                 </tr>
-            }
+            }}
         </tbody>
     </table>
 </div>

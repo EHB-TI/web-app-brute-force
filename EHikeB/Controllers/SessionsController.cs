@@ -30,12 +30,15 @@ namespace EHikeB.Controllers
         public async Task<IActionResult> Index()
         {
             Customer authUser = await _userManager.GetUserAsync(User);
-            List<Session> sessions = new List<Session>(_context.Sessions.Where(x => x.Driver.Id == authUser.Id));
-
-            foreach (Session a in sessions)
+            List<CustomerSession> customerSessions = _context.CustomerSessions.Where(p => p.CustomerId == authUser.Id).ToList();
+            var sessions = new List<Session>();
+            foreach (var customerSession in customerSessions)
             {
-                a.Address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == a.AddressId);
+                var session = _context.Sessions.Where(p => p.SessionID == customerSession.SessionId).FirstOrDefault();
+                sessions.Add(session);
             }
+            var my_sessions = _context.Sessions.Where(p => p.DriverId == authUser.Id).ToList();
+            ViewBag.My_Sessions = my_sessions;
             return View(sessions);
 
         }

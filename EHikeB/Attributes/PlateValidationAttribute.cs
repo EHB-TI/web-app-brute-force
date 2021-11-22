@@ -12,9 +12,13 @@ namespace EHikeB.Attributes
         {
             if (value is string naam)
             {
+                if(naam.Length == 9)
+                {
+                    return char.IsDigit(naam[0]) && naam[1] == '-' && naam[5] == '-' && char.IsLetter(naam[2])
+                    && char.IsLetter(naam[3]) && char.IsLetter(naam[4]) && char.IsDigit(naam[6]) && char.IsDigit(naam[7]) && char.IsDigit(naam[8]);
 
-                return char.IsDigit(naam[0]) && naam[1] == '-' && naam[5] == '-' && char.IsLetter(naam[2])
-                    && char.IsLetter(naam[3]) && char.IsLetter(naam[4]) && char.IsDigit(naam[6]) && char.IsDigit(naam[7]) && char.IsDigit(naam[8]) && naam.Length == 9;
+                }
+
             }
 
             return false;

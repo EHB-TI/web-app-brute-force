@@ -5,6 +5,7 @@
     <UserSecretsId>aspnet-EHikeB-5F3E05AF-1CC0-4CED-B9C5-8D663152C564</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+    <StartupObject>EHikeB.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

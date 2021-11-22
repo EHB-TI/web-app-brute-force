@@ -3,88 +3,69 @@
 *@
 @{
 }
+@model IEnumerable<Session>
+
+
 
 <div class="container py-5">
-    @*<form>
-            <div class="form-inline ">
-                <div class="form-group col-md-6">
-                    <label for="inputEmail4">Zip Code</label>
-                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="inputPassword4">Date</label>
-                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-secondary">Sign in</button>
-                </div>
-            </div>
-
-
-        </form>*@
 
     <h4 class="text-center text-secondary mb-3">Search</h4>
-
-    @*<div class=" card container py-1 mb-3">
-            <form>
-                <div class="form-row align-items-center">
-                    <div class="col-sm-5 my-1">
-                        <label class="sr-only" for="inlineFormInputName">Name</label>
-                        <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">
-                    </div>
-                    <div class="col-sm-5 my-1">
-                        <label class="sr-only" for="inlineFormInputName">Name</label>
-                        <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">
-                    </div>
-
-                    <div class=" my-1 justify-content-md-end">
-                        <button type="submit" class="btn btn-secondary ">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>*@
     <div class="card mb-3">
         <h5 class="card-header">Search</h5>
         <div class="card-body">
-            <form>
+            @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+            {
                 <div class="form-row align-items-center">
                     <div class="col-sm-6 my-1">
-                        <label class="sr-only" for="inlineFormInputName">Name</label>
-                        <input type="text" class="form-control" id="inlineFormInputName" placeholder="Zip Code">
-                    </div>
-                    <div class="col-sm-6 my-1">
-                        <label class="sr-only" for="inlineFormInputName">Name</label>
-                        <input type="datetime-local" class="form-control" id="inlineFormInputName" >
+                        @Html.TextBox("zipCode")<input type="submit" value="zipCode" class="form-control" id="zipCode">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-secondary mt-2">Go to search</button>
-            </form>
+            }
         </div>
     </div>
+    @if (Model != null)
+    {
 
-    <div class="card mb-3">
-        <h5 class="card-header">Featured</h5>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
-            <a href="#" class="btn btn-secondary">Visit details page</a>
-        </div>
-    </div>
-    <div class="card mb-3">
-        <h5 class="card-header">Featured</h5>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
-            <a href="#" class="btn btn-secondary">Visit details page</a>
-        </div>
-    </div>
-    <div class="card mb-3">
-        <h5 class="card-header">Featured</h5>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
-            <a href="#" class="btn btn-secondary">Visit details page</a>
-        </div>
-    </div>
+
+        @if (Model.Count() == 0)
+        {
+            <div class="card mb-3">
+                <h5 class="card-header">Featured</h5>
+                <div class="card-body">
+                    <h5 class="card-title">No match any sessions.</h5>
+                </div>
+            </div>
+        }
+        @if (Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="card mb-3">
+                    <h5 class="card-header">Featured</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Car.Model</h5>
+                        <p class="card-text">From @item.Address.City to EHB</p>
+                        <p class="card-text">On @item.StartTime</p>
+                        <a href="#" class="btn btn-secondary">Visit details page</a>
+                        @if (item.Available)
+                        {
+                            @using (Html.BeginForm("Join", "Search", FormMethod.Post))
+                                {
+                                <input type="hidden" name="Join" value="@item.SessionID">
+                                <input type="submit" value="Join" class="form-control">
+
+                            }
+                        }
+                        @if (!item.Available)
+                        {
+                            <p>Already full</p>
+                        }
+
+                    </div>
+                </div>
+            }
+        }
+    }
+
 
 </div>

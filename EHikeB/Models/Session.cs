@@ -35,6 +35,8 @@ namespace EHikeB.Models
         public DateTime StartTime { get; set; }
         public int AddressId { get; set; }
         public Address Address { get; set; }
+        [NotMapped]
+        public bool Available { get; set; }
         [Required]
         public Status Status { get; set; }
         public ICollection<Customer> Hikers { get; set; }

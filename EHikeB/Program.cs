@@ -22,6 +22,7 @@ namespace EHikeB
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
+
                     SeedDb.Initialize(context);
                 }
                 catch (Exception ex)
