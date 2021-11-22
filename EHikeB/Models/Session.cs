@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EHikeB.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,6 +31,7 @@ namespace EHikeB.Models
         public int CarID { get; set; }
         [Required]
         [Display(Name = "Departure time")]
+        [DateValidationAttribute(ErrorMessage = "Select a futur date")]
         public DateTime StartTime { get; set; }
         [Required]
         [Display(Name = "Meeting time at arrival location")]
