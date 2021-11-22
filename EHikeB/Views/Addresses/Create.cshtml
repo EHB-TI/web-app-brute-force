@@ -14,7 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="StreetName" class="control-label"></label>
-                <input asp-for="StreetName" class="form-control" />
+                <input asp-for="StreetName" list="adlist" class="form-control" oninput="f()" onchange="clicked()"/>
+                <datalist id="adlist">
+                </datalist>
                 <span asp-validation-for="StreetName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -23,9 +25,24 @@
                 <span asp-validation-for="StreetNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">zip code</label>
-                <input id="ZipCode" type="number" name="ZipCode" class="form-control" />
-                <span class="text-danger"></span>
+                <label asp-for="Zipcode" class="control-label"></label>
+                <input asp-for="Zipcode" class="form-control" readonly/>
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" readonly/>
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div style="display: none;" class="form-group">
+                <label asp-for="Latitude" class="control-label"></label>
+                <input asp-for="Latitude" class="form-control" />
+                <span asp-validation-for="Latitude" class="text-danger"></span>
+            </div>
+            <div style="display: none;" class="form-group">
+                <label asp-for="Longitude" class="control-label"></label>
+                <input asp-for="Longitude" class="form-control" />
+                <span asp-validation-for="Longitude" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -40,4 +57,98 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+
+    async function clicked() {
+
+        let street = document.getElementById("StreetName");
+        let zip = document.getElementById("Zipcode");
+        let city = document.getElementById("City");
+        let lat = document.getElementById("Latitude");
+        let lon = document.getElementById("Longitude");
+
+
+        zip.value = "";
+        city.value = "";
+        lat.value = "";
+        lon.value = "";
+
+        street.value = street.value.replace(/\s\s+/g, ' ');
+
+        let v = street.value.trim();
+        v = v.replace(/\s/g, '%20');
+        v = v + "%20";
+
+
+        let resp = await fetch(`https://api.tomtom.com/search/2/search/${v}.json?typeahead=false&limit=5&countrySet=be&language=nl-BE&extendedPostalCodesFor=Str&idxSet=Str&key=iIKtPoaYCYlPlVUTBERxAo7FuEFpzNr3`);
+
+        let obj = await resp.json();
+
+        for (s in obj.results) {
+
+
+            street.value = obj.results[s].address.streetName;
+
+            if (obj.results[s].address.postalCode) {
+                zip.value = obj.results[s].address.postalCode;
+            } else {
+                zip.value = 0000;
+
+            }
+
+            if (obj.results[s].address.localName) {
+
+                city.value = obj.results[s].address.localName;
+
+            } else if (obj.results[s].address.municipality) {
+
+                city.value = obj.results[s].address.municipality
+
+            } else {
+                city.value = "NA"
+            }
+
+            lon.value = obj.results[s].position.lon;
+            lat.value = obj.results[s].position.lat;
+
+        }
+
+
+    }
+
+    async function f() {
+
+        let search = document.getElementById("StreetName");
+        let datalist = document.getElementById("adlist");
+
+        search.value = search.value.replace(/\s\s+/g, ' ');
+
+        let v = search.value.trim();
+        v = v.replace(/\s/g, '%20');
+        v = v + "%20";
+
+        let resp = await fetch(`https://api.tomtom.com/search/2/search/${v}.json?typeahead=false&limit=5&countrySet=be&language=nl-BE&extendedPostalCodesFor=Str&idxSet=Str&key=iIKtPoaYCYlPlVUTBERxAo7FuEFpzNr3`);
+
+        let streets = await resp.json();
+
+        if (streets) {
+            datalist.innerHTML = "";
+        }
+
+
+        for (street in streets.results) {
+
+
+            let option = document.createElement("option");
+
+            option.value = streets.results[street].address.freeformAddress + ", " + streets.results[street].address.countrySecondarySubdivision;
+
+            datalist.appendChild(option);
+
+        }
+    }
+</script>
+
+
 }

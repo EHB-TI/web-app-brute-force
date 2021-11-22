@@ -23,8 +23,8 @@ namespace EHikeB.Areas
         // GET: AddressesController.cs/Addresses
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Addresses.Include(a => a.Location);
-            return View(await applicationDbContext.ToListAsync());
+            //var applicationDbContext = _context.Addresses.Include(a => a.Location);
+            return View();
         }
 
         // GET: AddressesController.cs/Addresses/Details/5
@@ -36,7 +36,7 @@ namespace EHikeB.Areas
             }
 
             var address = await _context.Addresses
-                .Include(a => a.Location)
+ 
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
@@ -66,7 +66,7 @@ namespace EHikeB.Areas
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", address.LocationId);
+            
             return View(address);
         }
 
@@ -83,7 +83,7 @@ namespace EHikeB.Areas
             {
                 return NotFound();
             }
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", address.LocationId);
+            
             return View(address);
         }
 
@@ -119,7 +119,7 @@ namespace EHikeB.Areas
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", address.LocationId);
+            
             return View(address);
         }
 
@@ -132,7 +132,6 @@ namespace EHikeB.Areas
             }
 
             var address = await _context.Addresses
-                .Include(a => a.Location)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {

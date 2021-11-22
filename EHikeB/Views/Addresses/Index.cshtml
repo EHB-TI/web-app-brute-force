@@ -18,9 +18,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.StreetNumber)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location.city)
-            </th>
+            
 
             <th></th>
         </tr>
@@ -34,9 +32,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StreetNumber)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location.city)
-            </td>
+            
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

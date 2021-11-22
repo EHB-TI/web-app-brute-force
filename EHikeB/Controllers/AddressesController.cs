@@ -28,7 +28,7 @@ namespace EHikeB.Controllers
         public async Task<IActionResult> Index()
         {
             Customer authUser = await _userManager.GetUserAsync(User);
-            var applicationDbContext = _context.Addresses.Include(a => a.Location).Where(p => p.CustomerId == authUser.Id);
+            var applicationDbContext = _context.Addresses.Where(p => p.CustomerId == authUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,7 +42,6 @@ namespace EHikeB.Controllers
             Customer authUser = await _userManager.GetUserAsync(User);
 
             var address = await _context.Addresses
-                .Include(a => a.Location)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (address == null || address.CustomerId != authUser.Id)
@@ -56,7 +55,7 @@ namespace EHikeB.Controllers
         // GET: Addresses/Create
         public IActionResult Create()
         {
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id");
+
             return View();
         }
 
@@ -65,26 +64,19 @@ namespace EHikeB.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StreetName,StreetNumber,LocationId,Longitude,Latitude,CustomerId")] Address address)
+        public async Task<IActionResult> Create([Bind("Id,StreetName,StreetNumber,Longitude,Latitude,Zipcode")] Address address)
         {
             if (ModelState.IsValid)
             {
 
-                string zipcode = Request.Form["ZipCode"];
-                int myZip = Int32.Parse(zipcode);
-                Location myLoc = _context.Locations.Where(p => p.zip == myZip).First();
-                if (myLoc == null)
-                {
-                    myLoc = new Location { city = "", zip = 0000 };
-                }
                 Customer authUser = await _userManager.GetUserAsync(User);
-                address.Location = myLoc;
                 address.CustomerId = authUser.Id;
+                address.Country = "BE";
                 _context.Add(address);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LocationId"] = new SelectList(_context.Locations, "Id", "Id", address.LocationId);
+            
             return View(address);
         }
 
@@ -98,7 +90,6 @@ namespace EHikeB.Controllers
             }
             Customer authUser = await _userManager.GetUserAsync(User);
             var address = await _context.Addresses
-                .Include(a => a.Location)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null || address.CustomerId != authUser.Id)
             {

@@ -16,15 +16,16 @@ namespace EHikeB.Models
         [Display(Name ="Street")]
         public string StreetName { get; set; }
         [Display(Name = "Number")]
+        [Required]
         public string StreetNumber { get; set; }
-        [ForeignKey("Location")]
-        public int LocationId { get; set; }
-        public virtual Location Location { get; set; }
         [NotMapped]
         [Display(Name = "City")]
         public string City { get; set; }
+
+        public int Zipcode { get; set; }
+
         [Display(Name = "Country")]
-        public string Country { get => "Belgium";}
+        public string Country { get; set; }
         public float Longitude { get; set; }
         public float Latitude { get; set; }
         public string CustomerId { get; set; }
