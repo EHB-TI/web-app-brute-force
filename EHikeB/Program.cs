@@ -19,7 +19,7 @@ namespace EHikeB
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                try
+                /*try
                 {
                     var context = services.GetRequiredService<ApplicationDbContext>();
 
@@ -28,7 +28,7 @@ namespace EHikeB
                 catch (Exception ex)
                 {
                     throw ex;
-                }
+                }*/
             }
             host.Run();
         }

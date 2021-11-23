@@ -33,5 +33,13 @@ namespace EHikeB.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Contact(string name,string email,string phone,string message)
+        {
+
+            return Redirect("/");
+        }
     }
 }
