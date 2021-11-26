@@ -1,5 +1,3 @@
-# Website
-https://ehikebe.azurewebsites.net/
 # Goal
 Our goal is to create a platform for the school, to let the students and teachers carpool safely. 
 It will be a web app where you can post your itinerary and people will be able to join you directly from the web app.
@@ -85,6 +83,5 @@ A users data is completely removed once he/she doesn't have any archived or open
 - Encrypt sensitive parts of the web.config using aspnet_regiis -pe (command line help).
 
 # Deployment
-*minimally, this section contains a public URL of the app. A description of how your software is deployed is a bonus. Do you do this manually, or did you manage to automate? Have you taken into account the security of your deployment process?*
-# *you may want further sections*
-*especially if the use of your application is not self-evident*
+https://ehikebe.azurewebsites.net/
+
