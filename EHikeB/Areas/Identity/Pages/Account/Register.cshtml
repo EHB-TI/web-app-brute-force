@@ -4,7 +4,7 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="container p-3">
+<div class="container py-5">
 
     <h1>@ViewData["Title"]</h1>
 
@@ -47,7 +47,7 @@
             <input asp-for="Input.ConfirmPassword" class="form-control" />
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-secondary">Register</button>
     </form>
 
 </div>

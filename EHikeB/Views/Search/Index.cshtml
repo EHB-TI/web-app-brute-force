@@ -17,7 +17,7 @@
             {
                 <div class="form-row align-items-center">
                     <div class="col-sm-6 my-1">
-                        @Html.TextBox("zipCode")<input type="submit" value="zipCode" class="form-control" id="zipCode">
+                        @Html.TextBox("zipCode", null, new { @class = "form-control mb-3", @placeholder = "Search zipcode" })<input type="submit" value="Search" class="form-control btn btn-secondary" id="zipCode">
                     </div>
                 </div>
             }
@@ -32,7 +32,7 @@
             <div class="card mb-3">
                 <h5 class="card-header">Featured</h5>
                 <div class="card-body">
-                    <h5 class="card-title">No match any sessions.</h5>
+                    <h5 class="card-title">No sessions have been matched to your search.</h5>
                 </div>
             </div>
         }
@@ -46,19 +46,28 @@
                         <h5 class="card-title">@item.Car.Model</h5>
                         <p class="card-text">From @item.Address.City to EHB</p>
                         <p class="card-text">On @item.StartTime</p>
-                        <a href="#" class="btn btn-secondary">Visit details page</a>
-                        @if (item.Available)
-                        {
-                            @using (Html.BeginForm("Join", "Search", FormMethod.Post))
-                                {
-                                <input type="hidden" name="Join" value="@item.SessionID">
-                                <input type="submit" value="Join" class="form-control">
+                        <div class="row row-cols-lg-auto g-3 align-items-center">
+                            <div class="col-auto">
+                                <a href="#" class="btn btn-secondary">Visit details page</a>
+                            </div>
+                            <div class="col-auto">
 
-                            }
-                        }
+
+
+                                @if (item.Available)
+                                {
+                                    @using (Html.BeginForm("Join", "Search", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="Join" value="@item.SessionID">
+                                        <input type="submit" value="Join" class="form-control btn btn-secondary">
+
+                                    }
+                                }
+                            </div>
+                        </div>
                         @if (!item.Available)
                         {
-                            <p>Already full</p>
+                            <p class="card-text">Already full</p>
                         }
 
                     </div>
@@ -66,6 +75,4 @@
             }
         }
     }
-
-
 </div>
