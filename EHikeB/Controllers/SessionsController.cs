@@ -25,6 +25,16 @@ namespace EHikeB.Controllers
             _userManager = userManager;
 
         }
+        public List<Customer> getParticipants(int SessionId)
+        {
+            var participants = new List<Customer>();
+            var mylist = _context.CustomerSessions.Where(p => p.SessionId == SessionId).ToList();
+            foreach (var session in mylist)
+            {
+                participants.Add(_context.Customers.Where(p => p.Id == session.CustomerId).First());
+            }
+            return participants;
+        }
 
         // GET: Sessions
         public async Task<IActionResult> Index()
@@ -35,9 +45,15 @@ namespace EHikeB.Controllers
             foreach (var customerSession in customerSessions)
             {
                 var session = _context.Sessions.Where(p => p.SessionID == customerSession.SessionId).FirstOrDefault();
+                session.Address = _context.Addresses.Where(p => p.Id == session.AddressId).FirstOrDefault();
                 sessions.Add(session);
             }
             var my_sessions = _context.Sessions.Where(p => p.DriverId == authUser.Id).ToList();
+            foreach (var session in my_sessions)
+            {
+                session.Hikers = getParticipants(session.SessionID);
+                session.Address = _context.Addresses.Where(p => p.Id == session.AddressId).FirstOrDefault();
+            }
             ViewBag.My_Sessions = my_sessions;
             return View(sessions);
 
@@ -51,23 +67,14 @@ namespace EHikeB.Controllers
             {
                 return NotFound();
             }
-
-            Customer authUser = await _userManager.GetUserAsync(User);
-
-
             var session = await _context.Sessions
                 .FirstOrDefaultAsync(m => m.SessionID == id);
-            if (session == null || session.DriverId != authUser.Id )
+            if (session == null )
             {
                 return RedirectToAction("Index");
             }
-
             session.Car = await _context.Cars.FirstOrDefaultAsync(x => x.ID == session.CarID);
             session.Address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == session.AddressId);
-
-
-
-
             return View(session);
         }
 

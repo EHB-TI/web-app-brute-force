@@ -23,25 +23,19 @@
                     @Html.DisplayFor(model => model.StartTime)
                 </dd>
                 <dt class="col-sm-5">
-                    Car
+                    @Html.DisplayNameFor(model => model.Car.Model)
                 </dt>
                 <dd class="col-sm-7">
                     @Html.DisplayFor(model => model.Car.Model)
                 </dd>
                 <dt class="col-sm-5">
-                    Address
+                    @Html.DisplayNameFor(model => model.Address.FullName)
                 </dt>
                 <dd class="col-sm-7">
-                    @Html.DisplayFor(model => model.Address.StreetName)  @Html.DisplayFor(model => model.Address.StreetNumber)
-                </dd>
-                <dt class="col-sm-5">
-                    @Html.DisplayNameFor(model => model.Address.Zipcode)
-                </dt>
-                <dd class="col-sm-7">
-                    @Html.DisplayFor(model => model.Address.City)
+                    @Html.DisplayFor(model => model.Address.FullName)
                 </dd>
             </dl>
-            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-        </div>
+                <a href="javascript: history.go(-1)" class="btn btn-secondary">Go Back</a>         
+            </div>
     </div>
 </div>

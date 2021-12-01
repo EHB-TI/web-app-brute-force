@@ -29,6 +29,8 @@ namespace EHikeB.Models
         public float Longitude { get; set; }
         public float Latitude { get; set; }
         public string CustomerId { get; set; }
+        [NotMapped, Display(Name = "Address")]
+        public string FullName { get { return StreetName + " "+ StreetNumber + ", " + Zipcode + " " + City; } }
     }
 }
     

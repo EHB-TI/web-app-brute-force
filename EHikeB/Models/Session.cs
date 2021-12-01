@@ -39,7 +39,21 @@ namespace EHikeB.Models
         public bool Available { get; set; }
         [Required]
         public Status Status { get; set; }
-        public ICollection<Customer> Hikers { get; set; }
+        [NotMapped]
+        public List<Customer> Hikers { get; set; }
+        [NotMapped]
+        public string HikersNames { get {
+                if(Hikers == null)
+                {
+                    return "";
+                }
+                string names = "";
+                foreach (Customer customer in Hikers)
+                {
+                    names += customer.FirstName + " " + customer.LastName + ",";
+                }
+                return names;
+            } }
         [Display(Name = "Paiement method")]
         public Paiement PaiementMethod { get; set; }
     }

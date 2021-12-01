@@ -31,7 +31,14 @@ namespace EHikeB.Controllers
             }
             return true;
         }
-
+        public bool checkJoined(Session session, Customer customer)
+        {
+            if(_context.CustomerSessions.Where(p => p.SessionId == session.SessionID && p.CustomerId == customer.Id).ToList().Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public async Task<ActionResult> Join(int Join)
         {
@@ -39,27 +46,33 @@ namespace EHikeB.Controllers
             bool check = checkAvailableSeats(Join);
             if (!check)
             {
-                return View();
+                TempData["AlertBox"] = "Session already full";
+                return View("index");
             }
             Customer authUser = await _userManager.GetUserAsync(User);
+            if(checkJoined(session, authUser))
+            {
+                TempData["AlertBox"] = "Session already joined";
+                return View("index");
+            }
             CustomerSession customerSession = new CustomerSession() { SessionId = Join, CustomerId = authUser.Id, Customer = authUser};
             _context.Add(customerSession);
             _context.SaveChanges();
+            TempData["AlertBox"] = "Session joined successfully !";
             return View("index");
         }
 
         // GET: SearchController
-        public ActionResult Index(int? zipCode)
+        public  ActionResult Index(int? zipCode)
         {
             if (zipCode == null)
             {
                 return View();
             }
-            List<Session> sessions = _context.Sessions.Where(p => p.Address.Zipcode == 0 && p.Status == Status.OPEN ).ToList();
-            Console.WriteLine(sessions);
+            List<Session> sessions = _context.Sessions.Where(p => p.Address.Zipcode == zipCode && p.Status == Status.OPEN ).ToList();
             foreach(Session item in sessions)
             {
-                if (!checkAvailableSeats(item.SessionID))
+                if (checkAvailableSeats(item.SessionID) == false)
                 {
                     sessions.Remove(item);
                 }

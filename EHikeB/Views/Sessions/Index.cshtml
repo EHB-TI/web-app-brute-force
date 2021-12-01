@@ -7,7 +7,7 @@
 
 <div class="py-5 container">
 
-    <h1 class="text-center text-secondary">All sessions</h1>
+    <h1 class="text-center text-secondary">Joined sessions</h1>
 
     <p>
         <a class="btn btn-secondary" asp-action="Create">Create a new session</a>
@@ -20,7 +20,7 @@
                     @Html.DisplayNameFor(model => model.StartTime)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address.StreetName)
+                    @Html.DisplayNameFor(model => model.Address.FullName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PaiementMethod)
@@ -37,7 +37,7 @@
                         @Html.DisplayFor(modelItem => item.StartTime)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Address.StreetName)
+                        @Html.DisplayFor(modelItem => item.Address.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PaiementMethod)
@@ -46,7 +46,7 @@
             }
         </tbody>
     </table>
-    Created sessions
+    <h1 class="text-center text-secondary">Created sessions</h1>
     <table class="table">
         <thead>
             <tr>
@@ -55,12 +55,14 @@
                     @Html.DisplayNameFor(model => model.StartTime)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address.StreetName)
+                    @Html.DisplayNameFor(model => model.Address.FullName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PaiementMethod)
                 </th>
-                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hikers)
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -74,10 +76,13 @@
                         @Html.DisplayFor(modelItem => item.StartTime)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Address.StreetName)
+                        @Html.DisplayFor(modelItem => item.Address.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PaiementMethod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HikersNames)
                     </td>
                     <td>
                         <a class="link-dark" asp-action="Details" asp-route-id="@item.SessionID">Details</a> |

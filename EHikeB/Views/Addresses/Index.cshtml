@@ -6,22 +6,17 @@
 <div class="container py-5">
 
 
-    <h1 class="text-center text-secondary">My cars</h1>
+    <h1 class="text-center text-secondary">My addresses</h1>
 
     <p>
-        <a asp-action="Create" class="btn btn-secondary">Add a new car</a>
+        <a asp-action="Create" class="btn btn-secondary">Add a new address</a>
     </p>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.StreetName)
+                    @Html.DisplayNameFor(model => model.FullName)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StreetNumber)
-                </th>
-
-
                 <th></th>
             </tr>
         </thead>
@@ -30,14 +25,9 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StreetName)
+                        @Html.DisplayFor(modelItem => item.FullName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StreetNumber)
-                    </td>
-
-                    <td>
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>

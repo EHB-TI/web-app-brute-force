@@ -8,7 +8,12 @@
 
 
 <div class="container py-5">
-
+    @if (TempData["AlertBox"] != null)
+    {
+        <div class="alert alert-success"> 
+                <strong>Joined the session successfuly !</strong>
+        </div>
+    }
     <h4 class="text-center text-secondary mb-3">Search</h4>
     <div class="card mb-3">
         <h5 class="card-header">Search</h5>
@@ -48,7 +53,7 @@
                         <p class="card-text">On @item.StartTime</p>
                         <div class="row row-cols-lg-auto g-3 align-items-center">
                             <div class="col-auto">
-                                <a href="#" class="btn btn-secondary">Visit details page</a>
+                                <a href="/Sessions/Details/@item.SessionID" class="btn btn-secondary">Visit details page</a>
                             </div>
                             <div class="col-auto">
 
