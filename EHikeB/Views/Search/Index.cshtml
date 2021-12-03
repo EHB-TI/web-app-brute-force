@@ -11,7 +11,8 @@
     @if (TempData["AlertBox"] != null)
     {
         <div class="alert alert-success"> 
-                <strong>Joined the session successfuly !</strong>
+           
+                <strong>@TempData["AlertBox"]</strong>
         </div>
     }
     <h4 class="text-center text-secondary mb-3">Search</h4>
@@ -68,13 +69,18 @@
 
                                     }
                                 }
+                                @if (!item.Available)
+                                {
+                                    @using (Html.BeginForm("Leave", "Search", FormMethod.Post))
+                                    {
+                                        <input type="hidden" name="Leave" value="@item.SessionID">
+                                        <input type="submit" value="Leave" class="form-control btn btn-secondary">
+
+                                    }
+
+                                }
                             </div>
                         </div>
-                        @if (!item.Available)
-                        {
-                            <p class="card-text">Already full</p>
-                        }
-
                     </div>
                 </div>
             }

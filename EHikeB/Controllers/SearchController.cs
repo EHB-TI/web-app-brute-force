@@ -20,11 +20,10 @@ namespace EHikeB.Controllers
             _context = context;
         }
 
-        public bool checkAvailableSeats(int SessionId)
+        public bool checkAvailableSeats(Session session)
         {
-            Session session = _context.Sessions.Where(p => p.SessionID == SessionId).First();
             Car car = _context.Cars.Where(p => p.ID == session.CarID).First();
-            int number = _context.CustomerSessions.Where(p => p.SessionId == SessionId).Count();
+            int number = _context.CustomerSessions.Where(p => p.SessionId == session.SessionID).Count();
             if(number == car.Seats-1)
             {
                 return false;
@@ -43,8 +42,7 @@ namespace EHikeB.Controllers
         public async Task<ActionResult> Join(int Join)
         {
             var session = _context.Sessions.Where(s => s.SessionID == Join).First();
-            bool check = checkAvailableSeats(Join);
-            if (!check)
+            if (!checkAvailableSeats(session))
             {
                 TempData["AlertBox"] = "Session already full";
                 return View("index");
@@ -55,30 +53,46 @@ namespace EHikeB.Controllers
                 TempData["AlertBox"] = "Session already joined";
                 return View("index");
             }
-            CustomerSession customerSession = new CustomerSession() { SessionId = Join, CustomerId = authUser.Id, Customer = authUser};
+            CustomerSession customerSession = new CustomerSession() { SessionId = Join, CustomerId = authUser.Id, Customer = authUser, Session = session};
             _context.Add(customerSession);
             _context.SaveChanges();
             TempData["AlertBox"] = "Session joined successfully !";
             return View("index");
         }
 
+        public async Task<ActionResult> Leave(int Leave)
+        {
+            var session = _context.Sessions.Where(s => s.SessionID == Leave).First();
+            Customer authUser = await _userManager.GetUserAsync(User);
+            if (!checkJoined(session, authUser))
+            {
+                return View("index");
+            }
+            CustomerSession customerSession = _context.CustomerSessions.Where(p => p.SessionId == session.SessionID && p.CustomerId == authUser.Id).First();
+            _context.Remove(customerSession);
+            _context.SaveChanges();
+            TempData["AlertBox"] = "Session left successfully !";
+            return View("index");
+        }
+
         // GET: SearchController
-        public  ActionResult Index(int? zipCode)
+        public async Task<ActionResult> Index(int? zipCode)
         {
             if (zipCode == null)
             {
                 return View();
             }
-            List<Session> sessions = _context.Sessions.Where(p => p.Address.Zipcode == zipCode && p.Status == Status.OPEN ).ToList();
+            Customer authUser = await _userManager.GetUserAsync(User);
+            List<Session> sessions = _context.Sessions.Where(p => p.Address.Zipcode == zipCode && p.Status == Status.OPEN && p.DriverId != authUser.Id ).ToList();
             foreach(Session item in sessions)
             {
-                if (checkAvailableSeats(item.SessionID) == false)
+                if (checkAvailableSeats(item) == false)
                 {
                     sessions.Remove(item);
                 }
                 else
                 {
-                    item.Available = checkAvailableSeats(item.SessionID);
+                    item.Available = !checkJoined(item, authUser);
                     item.Car = _context.Cars.Where(p => p.ID == item.CarID).FirstOrDefault();
                     item.Address = _context.Addresses.Where(p => p.Id == item.AddressId).FirstOrDefault();
                 }
