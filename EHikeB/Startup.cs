@@ -1,5 +1,6 @@
 using EHikeB.Data;
 using EHikeB.Models;
+using Matrixsoft.PwnedPasswords;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,7 @@ namespace EHikeB
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<Customer>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddTransient<PwnedPasswordsClient>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddHsts(options =>
@@ -56,7 +58,32 @@ namespace EHikeB
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseXXssProtection(options => options.EnabledWithBlockMode());
+                app.UseCsp(opts => opts
+                    .BlockAllMixedContent()
+                    .DefaultSources(s => s.Self())
+                    .DefaultSources(s => s.CustomSources("https://images.unsplash.com/","data:", "https:"))
+                    .ScriptSources(s => s.Self())
+                    .ScriptSources(s => s.UnsafeInline())
+                    .ScriptSources(s => s.UnsafeEval())
+                    .ScriptSources(s => s.CustomSources("https://ajax.aspnetcdn.com", "https://cdn.jsdelivr.net"))
+                    .StyleSources(s => s.Self())
+                    .StyleSources(s => s.UnsafeInline())
+                    .StyleSources(s => s.CustomSources("https://cdn.jsdelivr.net"))
+                    .FontSources(s => s.Self())
+                    .FontSources(s => s.CustomSources("https://fonts.gstatic.com", "https://cdn.jsdelivr.net"))
+
+                ) ;
+                app.UseXfo(options => options.Deny());
+                app.UseXContentTypeOptions();
+                app.UseReferrerPolicy(options => options.NoReferrer());
+                app.Use(async (context, next) =>
+                {
+                    context.Response.Headers.Add("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
+                    await next();
+                });
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
