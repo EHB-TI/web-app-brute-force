@@ -57,7 +57,6 @@ The domain contains all the needed security headers. The following site is used 
 
 ## Evaluation criteria regarding protection against typical web vulnerabilities
 
-### **CSP Check:**
 We used the following site is to check the CSP Security: [CSP Security](https://cspscanner.com/)
 
 ![Security Headers Warning](Images/CSP_Callback_Cats.PNG)
