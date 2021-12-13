@@ -54,10 +54,6 @@ The domain contains all the needed security headers. The following site is used 
 
 ![Security Headers](Images/Headers_Callback_Cats.PNG)
 
-The only warning that has been detected by the site is the following:
-
-![Security Headers Warning](Images/Headers_Warning_Callback_Cats.PNG)
-
 
 ## Evaluation criteria regarding protection against typical web vulnerabilities
 
@@ -72,18 +68,7 @@ All the used cookies have successfully been implemented and are used on a strict
 
 ![Security Headers Warning](Images/Raw_Headers_Callback_Cats.PNG)
 
+The `X-Frame-Options` header is defined and combined with the `frame-ancestors`. `X-Content-Type-Options: nosniff` is used to prevent MIME sniffing. 
+The only warning that has been detected by the site is the following:
 
-
-## Evaluation criteria regarding REST API's
-
-<br/><br/>
-
-## DAST
-
-<br/><br/>
-
-## SCA
-
-<br/><br/>
-
-## Other network attacks - (D)DOS 
+![Security Headers Warning](Images/Headers_Warning_Callback_Cats.PNG)
