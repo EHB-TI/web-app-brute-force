@@ -40,7 +40,6 @@ The server test by **[SSL Labs](https://www.ssllabs.com/ssltest/index.html)** re
 
 ![SSL Labs Mark](Images/SSL_Labs_Callback_Cats.PNG)
 
-<br>
 
 ### **HSTS preload list:**
 
@@ -48,7 +47,6 @@ The domain is present in the HSTS preload list. The following site is used to ch
 
 ![HSTS](Images/HSTS_Callback_Cats.PNG)
 
-<br>
 
 ### **Security headers:**
 
@@ -57,15 +55,23 @@ The domain contains all the needed security headers. The following site is used 
 ![Security Headers](Images/Headers_Callback_Cats.PNG)
 
 The only warning that has been detected by the site is the following:
-<br>
-![Security Headers](Images/Headers_Warning_Callback_Cats.PNG)
 
+![Security Headers Warning](Images/Headers_Warning_Callback_Cats.PNG)
 
 
 ## Evaluation criteria regarding protection against typical web vulnerabilities
 
 ### **CSP Check:**
 We used the following site is to check the CSP Security: [CSP Security](https://cspscanner.com/)
+
+![Security Headers Warning](Images/CSP_Callback_Cats.PNG)
+
+The different raw headers are displayed on the image here below. The needed headers are present and are propperly defined.
+
+All the used cookies have successfully been implemented and are used on a strict manner.
+
+![Security Headers Warning](Images/Raw_Headers_Callback_Cats.PNG)
+
 
 
 ## Evaluation criteria regarding REST API's
@@ -80,4 +86,4 @@ We used the following site is to check the CSP Security: [CSP Security](https://
 
 <br/><br/>
 
-## Other network attacks - (D)DOS -->
+## Other network attacks - (D)DOS 
