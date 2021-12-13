@@ -44,7 +44,7 @@ The server test by **[SSL Labs](https://www.ssllabs.com/ssltest/index.html)** re
 
 The domain is present in the HSTS preload list. The following site is used to check its status: [HSTS](https://hstspreload.org/)
 
-![HSTS](./images/feedback/HSTS_Callback_Cats.PNG)
+![HSTS](web-app-brute-force/images/feedback/HSTS_Callback_Cats.PNG)
 
 ### **Security headers:**
 
