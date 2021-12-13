@@ -62,12 +62,11 @@ The only warning that has been detected by the site is the following:
 
 
 
-
-<!-- <br/><br/>
-
 ## Evaluation criteria regarding protection against typical web vulnerabilities
 
-<br/><br/>
+### **CSP Check:**
+We used the following site is to check the CSP Security: [CSP Security](https://cspscanner.com/)
+
 
 ## Evaluation criteria regarding REST API's
 
