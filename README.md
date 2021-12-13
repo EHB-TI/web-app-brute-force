@@ -20,11 +20,9 @@ A carpooling session starts whenever a user - in this case a driver - offers the
 ### A session goes through different statuses:
 - **OPEN:** The session has been created and is available for the users. A user can still update information regarding the session.
 - **CLOSED:** The session has begun and is no longer available for outside users.
-- **TERMINATED:** The session has successfully been fullfilled.
-- **ARCHIVED:** The session is archived in the driver's history for a period of 60 days.
-- **DELETED:** The archived session is deleted from the DB after a period of 60 days.
+- **DELETED:** The CLOSED session is deleted from the DB.
 
-Users can see OPEN - CLOSED sessions, while TERMINATED - ARCHIVED are only visible to the admin and creator/driver of said session.
+Users can see OPEN - CLOSED sessions.
 
 ### A session contains multiple variables, these have to be filled in by the driver of the carpool-session:
 
