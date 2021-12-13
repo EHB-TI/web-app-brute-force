@@ -46,7 +46,7 @@ All the views use HTTPS to make sure all communication and customer information 
 
 The server test by **[SSL Labs](https://www.ssllabs.com/ssltest/index.html)** results in a A+ mark. Each response contains a Strict-Transport-Security header;
 
-![SSL Labs Mark](./Images/SSL_Labs_Callback_Cats.png)
+![SSL Labs Mark](images/feedback/SSL_Labs_Callback_Cats.png)
 
 <br>
 
@@ -54,7 +54,7 @@ The server test by **[SSL Labs](https://www.ssllabs.com/ssltest/index.html)** re
 
 The domain is present in the HSTS preload list. The following site is used to check its status: [HSTS](https://hstspreload.org/)
 
-![HSTS](./Images/HSTS_Callback_Cats.png)
+![HSTS](images/feedback/HSTS_Callback_Cats.png)
 
 <br>
 
@@ -62,11 +62,11 @@ The domain is present in the HSTS preload list. The following site is used to ch
 
 The domain contains all the needed security headers. The following site is used to check the headers: [Security Headers](https://securityheaders.com/)
 
-![Security Headers](./Images/Headers_Callback_Cats.png)
+![Security Headers](images/feedback/Headers_Callback_Cats.png)
 
 The only warning that has been detected by the site is the following:
 <br>
-![Security Headers](./Images/Headers_Warning_Callback_Cats.png)
+![Security Headers](images/feedback/Headers_Warning_Callback_Cats.png)
 
 <br>
 
