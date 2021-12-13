@@ -10,8 +10,6 @@ The emphasis of our testing is on safety. Since functionality, risk and security
 
 Throughout the testing of the website the uptime was not consistent. /////
 
-<br/><br/>
-
 ## 1. Evaluation criteria regarding registration and passwords
 
 ### **Log in and Registration:**
@@ -23,16 +21,12 @@ Since the registration is not functional, the user informations are not availabl
 
 The passwords that have been provided alongside the demo accounts do not meeet the minimum requirements and are of a risky nature. The passwords do not contain any capital letters, punctuation, numbers or a defined length.
 
-
-
-<br>
+It is not possible to fully test the site, since different functionalities are missing it is nearly impossaible to discuss some of the criteria. 
 
 ### **Uncaught errors:**
 
 > _The log in does not work on the following version of the website: https://www.eateecats.be/, the log in does work on the following modified version: https://eateecats.be/.  
 > We think this occurs because the **[first](https://www.eateecats.be/)** version is a subdomain of the **[second](https://eateecats.be/)** version._
-
-<br/><br/>
 
 ## Evaluation criteria regarding HTTPS
 
@@ -40,23 +34,17 @@ The passwords that have been provided alongside the demo accounts do not meeet t
 
 All the views use HTTPS to make sure all communication and customer information is protected. Using HTTPS also prevents Man-in-the-Middle attacks.
 
-<br>
-
 ### **SSL Labs server test:**
 
 The server test by **[SSL Labs](https://www.ssllabs.com/ssltest/index.html)** results in a A+ mark. Each response contains a Strict-Transport-Security header;
 
 ![SSL Labs Mark](./Images/SSL_Labs_Callback_Cats.png)
 
-<br>
-
 ### **HSTS preload list:**
 
 The domain is present in the HSTS preload list. The following site is used to check its status: [HSTS](https://hstspreload.org/)
 
 ![HSTS](./Images/HSTS_Callback_Cats.png)
-
-<br>
 
 ### **Security headers:**
 
@@ -65,10 +53,9 @@ The domain contains all the needed security headers. The following site is used 
 ![Security Headers](./Images/Headers_Callback_Cats.png)
 
 The only warning that has been detected by the site is the following:
-<br>
+
 ![Security Headers](./Images/Headers_Warning_Callback_Cats.png)
 
-<br>
 
 
 
