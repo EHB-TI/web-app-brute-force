@@ -17,7 +17,59 @@
 - [ ] CAA DNS Resource Records voor je domein of domeinen.
 - [X] Je domein of domeinen staan in de HSTS preload list of wachten op toevoeging;
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-
+# Evaluatiecriteria ivm aanmelden 
+- [x] Een gebruiker moet zich ook kunnen afmelden
+- [x] Een applicatie geeft ten alle tijde duidelijk aan of de gebruiker al dan niet aangemeld is
+- [x] Na aanmelden kan de gebruiker zijn of haar gegevens opvragen
+- [ ] Een gebruiker mag zich pas kunnen aanmelden als hij of zij controle over een email adres opgegeven tijdens registratie heeft aangetoond
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+# Evaluatiecriteria ivm wachtwoorden
+#### bij registratie dient de gebruiker:
+- [x] Te kunnen kopiëren uit een password manager en in een password veld van de registratiepagina plakken
+- [x] Een gebruiker moet zich ook kunnen afmelden
+- [ ] Verplicht om  een wachtwoord te kiezen van minstens 8 karakters
+- [x] Een zeer lang wachtwoord te kunnen kiezen met lengte minstens 64 karakters
+- [x] Elk 'printable' ASCII karakter te kunnen opnemen in het wachtwoord
+- [ ] Verplicht te worden een wachtwoord te kiezen dat niet vaak voorkomt 
+#### bij aanmelden dient de gebruiker:
+- [x] Te kunnen kopiëren uit een password manager en in een password veld van de aanmeldingspagina plakken
+#### De toepassing verdedigt zich tegen brute force en credential stuffing attacks:
+- [ ] Bij herhaalde mislukte pogingen verhoogt het tijdsinterval tussen pogingen exponentieel
+- [ ] MFA
+- [ ] Bij herhaalde mislukte pogingen wordt het account geblokkeerd
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+# Evaluatiecriteria ivm privacy Cookie Directive:
+- [ ] Gebruikers worden ingelicht over de gebruikte cookies, welke informatie wordt verzameld  en waarvoor ze dient;
+- [ ] Gebruikers toestemming geven voor deze trackers;
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+# Evaluatiecriteria ivm privacy
+#### Privacyverklaring: 
+De privacyverklaring dient minstens volgende gegevens te bevatten:
+- [ ] De identiteit en de contactgegevens (bijv. naam, adres, …) van de verwerkingsverantwoordelijke
+- [ ] Wanneer de persoonsgegevens worden doorgestuurd, de ontvangers of categorieën van ontvangers van de persoonsgegevens (bijv. een website ontwikkelaar, het sociaal secretariaat, …);
+- [ ] De bewaringstermijn van de persoonsgegevens, of indien deze niet vast bepaald is, de criteria die deze bewaringstermijn bepalen (bijv. termijnen opgelegd door boekhoudwetgeving, … );
+- [ ] De precieze rechten van betrokkene. Minimaal dien je hier dus de rechten vastgelegd door de AVG en van toepassing op jouw app uit te leggen aan de gebruiker/betrokkene;
+- [ ] Indien toestemming als rechtsgrond wordt gebruikt, dat de betrokkene steeds het recht heeft die toestemming in te trekken;
+- [ ] Dat de betrokkene het recht heeft klacht in te dienen bij een toezichthoudende autoriteit;
+- [ ] Of de verstrekking van persoonsgegevens een wettelijke of contractuele verplichting is, of noodzakelijk en of de betrokkene verplicht is de persoonsgegevens te verstrekken en wat de mogelijke gevolgen zijn wanneer deze gegevens niet worden verstrekt;
+- [ ] Het bestaan van geautomatiseerde besluitvorming en nuttige informatie over de onderliggende logica en het belang en de gevolgen van die verwerking voor de betrokkene;
+- [ ] De (categorieën van) gegevens en de bron waar de persoonsgegevens vandaan komen, indien U de persoonsgegevens niet van de betrokkene rechtstreeks heeft ontvangen.
+####  Verwerkingsregister:
+Het verwerkingsregister bevat volgende gegevens:
+- [ ] de identiteit en de contactgegevens (bijv. naam, adres, …) van de verwerkingsverantwoordelijke;
+- [ ] per verwerking de verwerkingsdoeleinden;
+- [ ] per verwerking de categoriën van persoonsgegevens en betrokkenen;
+- [ ] wanneer de persoonsgegevens worden doorgestuurd, de ontvangers van de persoonsgegevens;
+- [ ] de bewaringstermijn van de persoonsgegevens;
+- [ ] een algemene beschrijving van de beveiligingsmaatregelen.
+####  Evaluatiecriteria ivm privacy Rechten van betrokkenen
+De toepassing maakt het mogelijk voor betrokkenen om hun rechten uit te oefenen.
+- [x] Recht op inzage
+- [x] Recht op rectificatie en wissen van gegevens
+- [ ] Recht op beperking van de verwerking van gegevens
+- [ ] Recht op gegevensoverdraagbaarheid
+- [ ] Recht om niet aan geautomatiseerde besluitvorming onderworpen te worden
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 # DAST testing:
 Hiervoor hebben we gekozen voor de tool Owasp Zed attack proxy (zap):
 We hebben volgende config/plugin gebruikt:
@@ -48,6 +100,7 @@ We hebben volgende config/plugin gebruikt:
 | SOAP XML Injection.                        | Insane   |
 
 
+
 ## Resultaten:
 
 # ZAP Scanning Report
@@ -57,7 +110,7 @@ We hebben volgende config/plugin gebruikt:
 
 | Risk Level | Number of Alerts |
 | --- | --- |
-| High | 3 |
+| High | 1 |
 | Medium | 3 |
 | Low | 12 |
 | Informational | 8 |
@@ -69,8 +122,6 @@ We hebben volgende config/plugin gebruikt:
 
 | Name | Risk Level | Number of Instances |
 | --- | --- | --- |
-| Non static site (form present) | High | 18 |
-| Non static site (query present) | High | 234 |
 | Remote OS Command Injection | High | 9 |
 | CSP: Wildcard Directive | Medium | 89 |
 | CSP: script-src unsafe-inline | Medium | 89 |
@@ -99,47 +150,7 @@ We hebben volgende config/plugin gebruikt:
 
 ## Alert Detail
 
-
-
-### [ Non static site (query present) ](https://www.zaproxy.org/docs/alerts/50001/)
-
-
-
-##### High (Medium)
-
-### Description
-
-A query string has been detected in one of the sites URLs. This indicates that this might well not be a static site
-
-* URL: https://ehikebe.azurewebsites.net/%3Fname../../../../../../../../../../../../../../../../Windows/system.ini=abc
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `name../../../../../../../../../../../../../../../../Windows/system.ini=abc`
-* URL: https://ehikebe.azurewebsites.net/%3Fname=abc
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `name=abc`
-* URL: https://ehikebe.azurewebsites.net/%3Fnamec:%255CWindows%255Csystem.ini%2500=abc
-  * Method: `GET`
-  * Parameter: ``
-  * Attack: ``
-  * Evidence: `namec:%5CWindows%5Csystem.ini%00=abc`
-
-### Solution
-
-If this is not a static site then ignore or disable this script
-
-### Reference
-
-
-
-#### Source ID: 3
-
 ### [ Remote OS Command Injection ](https://www.zaproxy.org/docs/alerts/90020/)
-
-
 
 ##### High (Medium)
 
@@ -736,9 +747,13 @@ CSRF possible vulnerabilities presents on the site will be mitigated depending o
 #### WASC Id: 9
 
 #### Source ID: 3
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+# Nikto tool
+Deze tool vond volgende vulnerability.
+
+The Content-Encoding header is set to "deflate" this may mean that the server is vulnerable to the BREACH attack
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 # SCA testing:
 Voor Sca Testing hebben wij gebruik gemaakt van Dependabot hier zijn geen High of Critical Severity CVSS uitgekomen.
@@ -814,3 +829,5 @@ germanywestcentral.cloudapp.azure.com. 300 IN SOA ns1-08.azure-dns.com. azuredns
 ;; WHEN: Mon Dec 13 08:40:37 CET 2021
 ;; MSG SIZE  rcvd: 269
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
