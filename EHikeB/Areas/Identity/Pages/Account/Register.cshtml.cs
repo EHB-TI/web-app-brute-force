@@ -111,17 +111,13 @@ namespace EHikeB.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    //sendEmail(callbackUrl, user.Email);
+                    sendEmail(callbackUrl, user.Email);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
+                  
                 }
                 foreach (var error in result.Errors)
                 {
@@ -138,9 +134,9 @@ namespace EHikeB.Areas.Identity.Pages.Account
             MailMessage mail = new MailMessage();
 
             mail.To.Add(receiver);
-            mail.From = new MailAddress("omer.can.ozdemir@student.ehb.be");
+            mail.From = new MailAddress("EhikeEhb@outlook.com");
 
-            mail.ReplyToList.Add("omer.can.ozdemir@student.ehb.be");
+            mail.ReplyToList.Add("EhikeEhb@outlook.com");
             mail.Subject = "Confirmation mail";
             mail.Body = "Please click on this link to confirm your mail: " + HtmlEncoder.Default.Encode(url);
             mail.IsBodyHtml = true;
@@ -148,8 +144,8 @@ namespace EHikeB.Areas.Identity.Pages.Account
             smtp.Host = "smtp.office365.com";
 
             smtp.Port = 587;
-            //mail and password must be changed
-            smtp.Credentials = new System.Net.NetworkCredential("mail", "password");
+    
+            smtp.Credentials = new System.Net.NetworkCredential("EhikeEhb@outlook.com", "SoftwareSec-2020");
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
