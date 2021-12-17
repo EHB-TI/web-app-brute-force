@@ -55,7 +55,7 @@ namespace EHikeB.Controllers
             mail.Body = "Name: " + name + "<br>Email: " + email + "<br>Phone: " + phone + "<br>Message: " + message;
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.office365.com";
+            smtp.Host = "smtp.gmail.com";
 
             smtp.Port = 587;
             
