@@ -134,18 +134,17 @@ namespace EHikeB.Areas.Identity.Pages.Account
             MailMessage mail = new MailMessage();
 
             mail.To.Add(receiver);
-            mail.From = new MailAddress("EhikeEhb@outlook.com");
-
-            mail.ReplyToList.Add("EhikeEhb@outlook.com");
+            mail.From = new MailAddress("ehikeebh@gmail.com");
+            mail.ReplyToList.Add("ehikeebh@gmail.com");
             mail.Subject = "Confirmation mail";
-            mail.Body = "Please click on this link to confirm your mail: " + HtmlEncoder.Default.Encode(url);
+            mail.Body = $"Please click on this link to confirm your mail:<a href='{HtmlEncoder.Default.Encode(url)}'> Confirm mail </a> ";
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.office365.com";
+            smtp.Host = "smtp.gmail.com";
 
             smtp.Port = 587;
     
-            smtp.Credentials = new System.Net.NetworkCredential("EhikeEhb@outlook.com", "SoftwareSec-2020");
+            smtp.Credentials = new System.Net.NetworkCredential("ehikeebh@gmail.com", "SoftwareSec-2020");
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }

@@ -47,19 +47,19 @@ namespace EHikeB.Controllers
 
             MailMessage mail = new MailMessage();
             //mail must be changed
-            mail.To.Add("EhikeEhb@outlook.com");
-            mail.From = new MailAddress("EhikeEhb@outlook.com");
+            mail.To.Add("ehikeebh@gmail.com");
+            mail.From = new MailAddress("ehikeebh@gmail.com");
 
-            mail.ReplyToList.Add("EhikeEhb@outlook.com");
+            mail.ReplyToList.Add("ehikeebh@gmail.com");
             mail.Subject = "Contact us";
-            mail.Body = "Name: " + name + "\n Email: " + email + "\n Phone: " + phone + "\n Message: " + message;
+            mail.Body = "Name: " + name + "<br>Email: " + email + "<br>Phone: " + phone + "<br>Message: " + message;
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.office365.com";
 
             smtp.Port = 587;
             
-            smtp.Credentials = new System.Net.NetworkCredential("EhikeEhb@outlook.com", "SoftwareSec-2020");
+            smtp.Credentials = new System.Net.NetworkCredential("ehikeebh@gmail.com", "SoftwareSec-2020");
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
