@@ -142,8 +142,6 @@ The `X-Powered-By` header should be disabled/hidden to keep this information cla
 ### Modifications threat
 Since React.js is a [client-side framework](https://yudhajitadhikary.medium.com/client-side-rendering-vs-server-side-rendering-in-react-js-next-js-b74b909c7c51) the threat model should be modified. The client communicates directly with the API itself through Cloudflare and doesnt use the web server. The web server is only used to get the necessary runtime data but doesnt forward the incoming requests. The web server and the API do not communicate with each other.
 
-<br>
-
 ### DoS / DDoS Attack
 The website is protected by Cloudflare. This protects the site against all possible (D)DOS-Attacks.
 
