@@ -74,8 +74,9 @@ Orders do not alter the stock of a product. This is not actually testable since 
 <br>
 
 **Possible fixes:** <br>
+```
 (1) : `Cache-Control: private, no-cache, no-store, max-age=0, no-transform`
-
+```
 <br>
 
 ## 3. Evaluation criteria regarding HTTPS <br>
@@ -169,11 +170,16 @@ As a student I can create as much payment intents as I want, without providing a
 <br>
 
 **Possible fixes:**<br>
+
+```
 (1) : Block the access to ressources by checking who is logged in.
 
+if(req.user.type != 'admin') 
+        return res.status(403).send('No permission to access this content.')
+```
 <br>
 
-### 7. OWASP ZAP
+## 7. OWASP ZAP
 
 | Alert                                                                                 | Solution                             | Risk            |
 | --------------------------------------------------------------------------------------| ------------------------------------ | :-------------: |
