@@ -69,15 +69,11 @@ Registration will not be used in the final version of the projects since it will
 <br>
 
 **Other Issues:**<br>
-Orders do not alter the stock of a product. This is not actually testable since we can not perform a legitimate order. No code has been found to perform this. (1)<br>
+Orders do not alter the stock of a product. This is not actually testable since we can not perform a legitimate order. No code has been found to perform this.<br>
 
 <br>
 
-**Possible fixes:** <br>
-```
-(1) : `Cache-Control: private, no-cache, no-store, max-age=0, no-transform`
-```
-<br>
+
 
 ## 3. Evaluation criteria regarding HTTPS <br>
 
@@ -100,7 +96,13 @@ Orders do not alter the stock of a product. This is not actually testable since 
 
 
 **Other Issues:**<br>
-There is no control over the cached content because the caching headers are not defined properly. An attacker with local access to a user’s web browser may be able to retrieve cached copies of resources that the user previously accessed, exposing any stored sensitive data. [Source](https://gaya3-r.medium.com/cache-control-header-is-missing-for-a-sensitive-page-168ac9f43e12)
+There is no control over the cached content because the caching headers are not defined properly. An attacker with local access to a user’s web browser may be able to retrieve cached copies of resources that the user previously accessed, exposing any stored sensitive data. [Source](https://gaya3-r.medium.com/cache-control-header-is-missing-for-a-sensitive-page-168ac9f43e12)(1)<br>
+
+**Possible fixes:** <br>
+```
+(1) : `Cache-Control: private, no-cache, no-store, max-age=0, no-transform`
+```
+<br>
 
 
 <br>
