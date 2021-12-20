@@ -104,9 +104,6 @@ There is no control over the cached content because the caching headers are not 
 ```
 <br>
 
-
-<br>
-
 ## 4. Evaluation criteria regarding protection against typical web vulnerabilities
 
 | Passed | Criteria                                                                              | Notes                                | Severity |
