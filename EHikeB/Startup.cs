@@ -3,6 +3,7 @@ using EHikeB.Models;
 using Matrixsoft.PwnedPasswords;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -36,6 +37,14 @@ namespace EHikeB
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddTransient<PwnedPasswordsClient>();
             services.AddControllersWithViews();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential 
+                // cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                // requires using Microsoft.AspNetCore.Http;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
             services.AddRazorPages();
             services.AddHsts(options =>
             {
@@ -58,6 +67,7 @@ namespace EHikeB
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseCookiePolicy();
                 app.UseXXssProtection(options => options.EnabledWithBlockMode());
                 app.UseCsp(opts => opts
                     .BlockAllMixedContent()
