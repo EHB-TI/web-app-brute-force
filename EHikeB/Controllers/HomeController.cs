@@ -1,5 +1,6 @@
 ﻿using EHikeB.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace EHikeB.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IConfiguration _config;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _config = configuration;
         }
 
         public IActionResult Index()
@@ -46,11 +49,12 @@ namespace EHikeB.Controllers
         {
 
             MailMessage mail = new MailMessage();
-            //mail must be changed
-            mail.To.Add("ehikeebh@gmail.com");
-            mail.From = new MailAddress("ehikeebh@gmail.com");
+            var cred_mail = _config.GetSection("Credentials")["Email"];
+            var cred_password = _config.GetSection("Credentials")["Password"];
+            mail.To.Add(cred_mail);
+            mail.From = new MailAddress(cred_mail);
 
-            mail.ReplyToList.Add("ehikeebh@gmail.com");
+            mail.ReplyToList.Add(cred_mail);
             mail.Subject = "Contact us";
             mail.Body = "Name: " + name + "<br>Email: " + email + "<br>Phone: " + phone + "<br>Message: " + message;
             mail.IsBodyHtml = true;
@@ -59,7 +63,7 @@ namespace EHikeB.Controllers
 
             smtp.Port = 587;
             
-            smtp.Credentials = new System.Net.NetworkCredential("ehikeebh@gmail.com", "SoftwareSec-2020");
+            smtp.Credentials = new System.Net.NetworkCredential(cred_mail, cred_password);
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
 namespace EHikeB.Areas.Identity.Pages.Account
 {
@@ -25,17 +26,19 @@ namespace EHikeB.Areas.Identity.Pages.Account
         private readonly UserManager<Customer> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _config;
 
         public RegisterModel(
             UserManager<Customer> userManager,
             SignInManager<Customer> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _config = configuration;
         }
 
         [BindProperty]
@@ -92,6 +95,7 @@ namespace EHikeB.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -132,19 +136,18 @@ namespace EHikeB.Areas.Identity.Pages.Account
         {
 
             MailMessage mail = new MailMessage();
-
+            var cred_mail = _config.GetSection("Credentials")["Email"];
+            var cred_password = _config.GetSection("Credentials")["Password"];
             mail.To.Add(receiver);
-            mail.From = new MailAddress("ehikeebh@gmail.com");
-            mail.ReplyToList.Add("ehikeebh@gmail.com");
+            mail.From = new MailAddress(cred_mail);
+            mail.ReplyToList.Add(cred_mail);
             mail.Subject = "Confirmation mail";
             mail.Body = $"Please click on this link to confirm your mail:<a href='{HtmlEncoder.Default.Encode(url)}'> Confirm mail </a> ";
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient();
             smtp.Host = "smtp.gmail.com";
-
             smtp.Port = 587;
-    
-            smtp.Credentials = new System.Net.NetworkCredential("ehikeebh@gmail.com", "SoftwareSec-2020");
+            smtp.Credentials = new System.Net.NetworkCredential(cred_mail, cred_password);
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
