@@ -89,6 +89,8 @@ namespace EHikeB
                 app.UseReferrerPolicy(options => options.NoReferrer());
                 app.Use(async (context, next) =>
                 {
+                    context.Response.Headers.Remove("Server");
+                    context.Response.Headers.Remove("X-Powered-By");
                     context.Response.Headers.Add("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()");
                     await next();
                 });
